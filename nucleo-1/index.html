@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitia: Infografía interactiva | Home</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="desktop">
+        <aside class="widgets">
+            <div class="widget" data-ventana="calendario">
+                <img src="../img/calendar-widget.png" alt="">
+                <h5 class="widget-name">Calendario</h5>
+            </div>
+            <div class="widget">
+                <img src="../img/reproductor-gris.png" alt="">
+                <h5 class="widget-name">Reproductor</h5>
+            </div>
+            <div class="widget">
+                <img src="../img/mezclador-gris.png" alt="">
+                <h5 class="widget-name">Mezclador</h5>
+            </div>
+        </aside>
+        <div class="loop">
+            <div id="loop-dialogo" class="loop-dialogo">
+                <p id="dialogo">Hola! Soy Loop, voy a ser tu guia en esta experiencia. ¡Espero que te diviertas!</p>
+            </div>  
+            <img src="../img/loop.png" alt="Imagen de loop, ayudante virtual">
+        </div>
+
+        <!---------- WIDGET DE CALENDARIO ---------->
+        <div class="ventana" data-ventana="calendario">
+            <div class="calendario-ventana"></div>
+            <div class="calendario-ventana"></div>
+            <div class="calendario-ventana"></div>
+        </div>
+
+        <div class="ventana" data-ventana="player">
+        </div>
+
+        <!---------- BARRA DE TAREAS ---------->
+        <div class="taskbar">
+            <img class="taskbar-logo" src="../img/windows-vista-icon-seeklogo.png" alt="">
+        </div>
+    </main>
+    <script src="widgets.js"></script>
+    <script src="dialogo.js"></script>
+</body>
+</html>
