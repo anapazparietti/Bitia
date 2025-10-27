@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
     aplicaciones.addEventListener('click', (e) => {
       e.stopPropagation();
       const target = aplicaciones.dataset.ventana;
-      ventanaActiva = document.querySelector(`.calendario-ventana="${target}"]`);
-      ventanaActiva.style.display = 'grid';
+      ventanaActiva = document.querySelector(`.ventana[data-ventana="${target}"]`);
+      ventanaActiva.style.display = 'flex';
     });
   });
 

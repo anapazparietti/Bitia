@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitia: Infografía interactiva | Home</title>
 
+    <title>Bitia: Infografía interactiva | Home</title>
+    <link rel="shortcut icon" href="/img/icon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -32,12 +33,15 @@
 
         <!---------- WIDGET DE CALENDARIO ---------->
         <div class="ventana" data-ventana="calendario">
-            <div class="calendario-ventana"></div>
-            <div class="calendario-ventana"></div>
-            <div class="calendario-ventana"></div>
-        </div>
-
-        <div class="ventana" data-ventana="player">
+            <div class="contenedor-3d">
+                <div class="calendario-ventana">1930/40</div>
+                <div class="calendario-ventana">1950</div>
+                <div class="calendario-ventana">1960/70</div>
+                <div class="calendario-ventana">1990</div>
+                <div class="calendario-ventana">2000</div>
+                <div class="calendario-ventana">2010</div>
+                <div class="calendario-ventana">2020</div>
+            </div>
         </div>
 
         <!---------- BARRA DE TAREAS ---------->
@@ -47,5 +51,6 @@
     </main>
     <script src="widgets.js"></script>
     <script src="dialogo.js"></script>
+    <script src="movimientoMenu.js"></script>
 </body>
 </html>
