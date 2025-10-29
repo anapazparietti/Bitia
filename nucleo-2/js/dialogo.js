@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
 const dialogos = [
   "Hola! Soy Loop, voy a ser tu guia en esta experiencia. ¡Espero que te diviertas!",
   "Primero comenzaremos aprendiendo sobre la evolución de la música hasta la creación de la IA",
-  "Haz enter en el calendario para empezar y usa la rueda para desplazarte !Buena suerte!"
 ];
 
 const cuadro = document.getElementById("loop-dialogo");
