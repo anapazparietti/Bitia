@@ -55,7 +55,7 @@
 }
 
 
-.nucleo-2 .contenedor-botones button:active {
+.nucleo-2 .contenedor-botones .selected {
   transform: scale(0.97);
   background: #243A92;
 }
