@@ -32,16 +32,12 @@
     gap:18px;
     background-image: url(Diseño/Frame\ 3.png);
     background-size: cover;
-    padding-top: 40px;
+    padding-top: 60px;
     align-items:center;
     justify-content: center;
-    width: 115vh;
+    width: 130vh;
     border-radius: 10px;
-    height: 84vh;
-  }
-
-  .container2 img{
-    width: 110vh;
+    height: 60vh;
   }
 
   .grid-panel{
@@ -168,61 +164,10 @@
     padding: 0 !important;
   }
 
-  .loop{
-    display: flex;
-    position: absolute;
-    margin-top: 40vh;
-    margin-right: 10vh;
-    top: 0;
-    right: 0;
-    opacity: 1;
-    transition: opacity 0.5s ease;
-  }
-
-  .loop img{
-    width: 500px;
-  }
-
-  .loop.oculto {
-  opacity: 0;
-  pointer-events: none; /* evita clics mientras se desvanece */
-}
-
   @media (max-width:980px){
     .container{ grid-template-columns:1fr; padding:10px; }
     .rightbar{ order:3; height:auto; flex-direction:row; justify-content:space-around; }
   }
-
-
-  /* Botón centrado con pulso */
-.boton-centro {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: pulso 1.5s infinite ease-in-out;
-  cursor: pointer;
-  z-index: 20;
-}
-
-.boton-centro img {
-  width: 160px;
-  transition: transform 0.2s ease;
-}
-
-/* Animación de pulso */
-@keyframes pulso {
-  0% { transform: translate(-50%, -50%) scale(1); }
-  50% { transform: translate(-50%, -50%) scale(1.12); }
-  100% { transform: translate(-50%, -50%) scale(1); }
-}
-
-/* Hover visual */
-.boton-centro:hover img {
-  transform: scale(1.2);
-  filter: brightness(1.2);
-}
-
 </style>
 </head>
 <body>
@@ -230,27 +175,31 @@
 <div class="container" tabindex="0">
   <div class="all">
     <div class="container2" tabindex="0">
-     <img src="Diseño/Frame 7 (1).png" alt="">
+      <div class="grid-panel" id="gridPanel">
+        <div class="pad-grid" id="padGrid" aria-label="Grid de instrumentos"></div>
+      </div>
+      <div class="composer-panel" aria-live="polite">
+        <div class="stack" id="stackArea">
+          <div style="color:var(--muted); font-size:0px;">Pistas seleccionadas (apiladas):</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="player">
+      <div class="wire-btn circle" title="play/stop"></div>
+      <img src="Diseño/barra reproductor.png" alt="">
     </div>
   </div>
 
   <aside class="rightbar" id="rightBar">
     <div><a href="#"><img src="" alt=""></a></div>
-    <div><a href="#"><img src="Diseño/Frame 4 (1).png" alt=""></a></div>
+    <div><a href="index.html"><img src="Diseño/Frame 4 (1).png" alt=""></a></div>
     <div><a href="#"><img src="Diseño/Frame 5.png" alt=""></a></div>
-    <div><a href="indec.html"><img src="Diseño/Frame 6.png" alt=""></a></div>
+    <div><a href="index.html"><img src="Diseño/Frame 6.png" alt=""></a></div>
   </aside>
 </div>
 
 <div class="barra"></div>
-
-<div class="loop" id="mensaje"><img src="Diseño/Frame 18 (2).png" alt=""></div>
-
-<!-- BOTÓN CENTRAL -->
-<div class="boton-centro">
-  <img src="Diseño/boton.png" alt="Botón central" id="botonCentral">
-</div>
-
 
 <script>
 const padGrid = document.getElementById('padGrid');
@@ -324,59 +273,12 @@ window.addEventListener('wheel', e => {
   }
 }, { passive: false });
 
+
 function updateRightbarFocus(){
-  rightBarImgs.forEach((img,i)=>img.classList.toggle('focused', i===rightBarIndex));
+    rightBarImgs.forEach((img,i)=>{
+        img.classList.toggle('focused', i===rightBarIndex);
+    });
 }
-
-// --- BOTÓN CENTRAL ---
-const botonCentral = document.getElementById("botonCentral");
-
-// Click directo
-botonCentral.addEventListener("click", () => {
-  if (mode !== "rightbar") {
-    window.location.href = "emociones.html";
-  }
-});
-
-const loop = document.querySelector('.loop');
-let instruccionesActivas = true; // .loop visible al inicio
-
-// --- INDICADOR BOTÓN CENTRAL ---
-function updateIndicadorBotonCentral(){
-  if(mode==='grid' && !instruccionesActivas){
-    // Selecciona solo en grid cuando loop oculto
-    botonCentral.classList.add('active-button');
-    botonCentral.style.border = '4px solid #2e6bf0';
-    botonCentral.style.borderRadius = '5%';
-    botonCentral.style.boxShadow = '0 0 20px rgba(46,107,240,0.6)';
-  } else {
-    // Deselecciona en cualquier otro modo (rightbar o loop visible)
-    botonCentral.classList.remove('active-button');
-    botonCentral.style.border = 'none';
-    botonCentral.style.boxShadow = '';
-  }
-}
-
-
-// Función para ocultar loop y activar indicador
-function ocultarLoop() {
-  loop.style.transition = 'opacity 0.5s ease';
-  loop.style.opacity = '0';
-  setTimeout(() => {
-    loop.style.display = 'none';
-    instruccionesActivas = false;
-    updateIndicadorBotonCentral();
-  }, 500);
-}
-
-// Función central para cambiar de modo
-function cambiarModo(nuevoModo){
-  mode = nuevoModo;
-  if(mode==='grid') updateCursor();
-  updateRightbarFocus();
-  updateIndicadorBotonCentral(); // aquí se deselecciona boton central si no es grid
-}
-
 
 let jTimeout = null;
 let jLongPress = false;
@@ -385,24 +287,29 @@ const jHoldThreshold = 2000; // 2 segundos
 window.addEventListener('keydown', e => {
   const key = e.key.toLowerCase();
 
-  if (instruccionesActivas) {
-    ocultarLoop();
-    return;
-  }
-
+  // --- J largo: alternar grid / rightbar ---
   if (key === 'j' && !jTimeout) {
     jLongPress = false;
     jTimeout = setTimeout(() => {
       jLongPress = true;
-      cambiarModo('rightbar'); // <- ahora deselecciona correctamente
+
+      // Alternar modo
+      mode = (mode === 'grid') ? 'rightbar' : 'grid';
+      updateCursor();
+      updateRightbarFocus();
+
       jTimeout = null;
     }, jHoldThreshold);
   }
 
+  // --- Alternar modo con X ---
   if (key === 'x') {
-    cambiarModo(mode==='grid'?'rightbar':'grid');
+    mode = (mode === 'grid') ? 'rightbar' : 'grid';
+    updateCursor();
+    updateRightbarFocus();
   }
 
+  // --- Navegación ---
   if (mode === 'grid') {
     if (key === 'd') { currentRow = clampMod(currentRow + 1, ROWS); updateCursor(); }
     else if (key === 'a') { currentRow = clampMod(currentRow - 1, ROWS); updateCursor(); }
@@ -414,15 +321,17 @@ window.addEventListener('keydown', e => {
 
 window.addEventListener('keyup', e => {
   const key = e.key.toLowerCase();
-  if (key === 'j' && jTimeout) {
-    clearTimeout(jTimeout);
-    jTimeout = null;
 
+  if (key === 'j') {
+    if (jTimeout) {
+      clearTimeout(jTimeout);
+      jTimeout = null;
+    }
+
+    // --- Acción corta solo si no fue J largo ---
     if (!jLongPress) {
-      // J corto → solo si no fue largo
-      if (mode === 'grid') {
-        window.location.href = 'emociones.html';
-      } else if (mode === 'rightbar') {
+      if (mode === 'grid') selectCurrent();
+      else if (mode === 'rightbar') {
         const target = rightBarImgs[rightBarIndex];
         if (!target) return;
         const parentLink = target.closest('a');
@@ -436,15 +345,20 @@ window.addEventListener('keyup', e => {
   }
 });
 
+
+function updateRightbarFocus(){
+  rightBarImgs.forEach((img,i)=>img.classList.toggle('focused',i===rightBarIndex));
+}
+
 function activateRightbarItem(){
   const target=rightBarImgs[rightBarIndex];
   if(!target) return;
+  // Acción de ejemplo (podés reemplazarla con la lógica real)
   console.log('Seleccionaste:', target.src);
   target.style.transform='scale(1.2)';
   setTimeout(()=>updateRightbarFocus(),200);
 }
 
-// --- AUDIO & GRID ---
 async function selectCurrent(){
   ensureAudio();
   if(audioCtx.state==='suspended') await audioCtx.resume();
@@ -459,8 +373,8 @@ async function selectCurrent(){
 
 async function playToneFor(row,col){
   const audioFiles=[
-    ['guitarra1.mp3','guitarra2.mp3','guitarra3.mp3'],
-    ['bateria1.mp3','bateria2.mp3','bateria3.mp3'],
+    ['Musicas/sonidodecorrecto.mp3','guitarra2.mp3','guitarra3.mp3'],
+    ['Musicas/sonido de error.mp3','bateria2.mp3','bateria3.mp3'],
     ['piano1.mp3','piano2.mp3','piano3.mp3'],
     ['voz1.mp3','voz2.mp3','voz3.mp3']
   ];
@@ -479,7 +393,42 @@ async function playToneFor(row,col){
     const ab=await resp.arrayBuffer();
     audioBuffer=await audioCtx.decodeAudioData(ab.slice(0));
   }catch(err){ console.warn('No se pudo decodificar:',err); }
-  return {audio,audioBuffer,stop:()=>{audio.pause();audio.currentTime=0;},label:labels[row][col]};
+  return{audio,audioBuffer,stop:()=>{audio.pause();audio.currentTime=0;},label:labels[row][col]};
+}
+
+// ------- Play/Pause global -------
+let isPlaying=false;
+const playButton=document.querySelector('.wire-btn.circle');
+playButton.textContent='▶️';
+playButton.addEventListener('click',()=>{
+  ensureAudio();
+  if(audioCtx.state==='suspended') audioCtx.resume();
+  for(let r=0;r<ROWS;r++){ if(selected[r]?.nodeObj?.audio){ selected[r].nodeObj.audio.pause(); selected[r].nodeObj.audio.currentTime=0; } }
+  if(!isPlaying){
+    for(let r=0;r<ROWS;r++){ if(selected[r]?.nodeObj?.audio){ const a=selected[r].nodeObj.audio; a.currentTime=0; a.play().catch(()=>{}); } }
+    playButton.textContent='⏸️';
+  }else{
+    for(let r=0;r<ROWS;r++){ if(selected[r]?.nodeObj?.audio){ selected[r].nodeObj.audio.pause(); } }
+    playButton.textContent='▶️';
+  }
+  isPlaying=!isPlaying;
+});
+
+function drawWaveform(audioBuffer,canvas){
+  const ctx=canvas.getContext('2d');
+  const width=canvas.width, height=canvas.height;
+  ctx.clearRect(0,0,width,height);
+  if(!audioBuffer){ ctx.fillText('⚠️ Sin forma de onda',10,20); return; }
+  const data=audioBuffer.getChannelData(0);
+  const step=Math.ceil(data.length/width);
+  const amp=height/2;
+  ctx.beginPath();
+  for(let i=0;i<width;i++){
+    let min=1,max=-1;
+    for(let j=0;j<step;j++){ const datum=data[i*step+j]; if(datum<min)min=datum; if(datum>max)max=datum; }
+    ctx.lineTo(i,(1+min)*amp); ctx.lineTo(i,(1+max)*amp);
+  }
+  ctx.strokeStyle='#2e6bf0'; ctx.lineWidth=1; ctx.stroke();
 }
 
 function refreshGridSelectedMarkers(){
@@ -525,50 +474,10 @@ function refreshSelectionsUI(){
 
 function stopSelection(row){ if(!selected[row])return; try{selected[row].nodeObj.stop();}catch(e){} selected[row]=null; }
 
-function drawWaveform(audioBuffer,canvas){
-  const ctx=canvas.getContext('2d');
-  const width=canvas.width, height=canvas.height;
-  ctx.clearRect(0,0,width,height);
-  if(!audioBuffer){ ctx.fillText('⚠️ Sin forma de onda',10,20); return; }
-  const data=audioBuffer.getChannelData(0);
-  const step=Math.ceil(data.length/width);
-  const amp=height/2;
-  ctx.beginPath();
-  for(let i=0;i<width;i++){
-    let min=1,max=-1;
-    for(let j=0;j<step;j++){ const datum=data[i*step+j]; if(datum<min)min=datum; if(datum>max)max=datum; }
-    ctx.lineTo(i,(1+min)*amp); ctx.lineTo(i,(1+max)*amp);
-  }
-  ctx.strokeStyle='#2e6bf0'; ctx.lineWidth=1; ctx.stroke();
-}
-
-// --- PLAY / PAUSE GLOBAL ---
-let isPlaying=false;
-const playButton=document.querySelector('.wire-btn.circle');
-playButton.textContent='▶️';
-playButton.addEventListener('click',()=>{
-  ensureAudio();
-  if(audioCtx.state==='suspended') audioCtx.resume();
-  for(let r=0;r<ROWS;r++){ if(selected[r]?.nodeObj?.audio){ selected[r].nodeObj.audio.pause(); selected[r].nodeObj.audio.currentTime=0; } }
-  if(!isPlaying){
-    for(let r=0;r<ROWS;r++){ if(selected[r]?.nodeObj?.audio){ const a=selected[r].nodeObj.audio; a.currentTime=0; a.play().catch(()=>{}); } }
-    playButton.textContent='⏸️';
-  }else{
-    for(let r=0;r<ROWS;r++){ if(selected[r]?.nodeObj?.audio){ selected[r].nodeObj.audio.pause(); } }
-    playButton.textContent='▶️';
-  }
-  isPlaying=!isPlaying;
-});
-
-// --- INIT ---
 buildGrid();
 document.querySelector('.container').addEventListener('click',()=>document.querySelector('.container').focus());
 updateRightbarFocus();
-updateIndicadorBotonCentral();
-
 </script>
-
-
-
 </body>
 </html>
+
