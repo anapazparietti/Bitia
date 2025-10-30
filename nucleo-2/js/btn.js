@@ -15,5 +15,4 @@ buttons.forEach(button => {
         selectedButton.classList.add("selected");
     });
 });
-
 });

@@ -1,29 +1,30 @@
 document.addEventListener("DOMContentLoaded", () => {
   
 const dialogos = [
-  "Hola! Soy Loop, voy a ser tu guia en esta experiencia. ¡Espero que te diviertas!",
-  "Primero comenzaremos aprendiendo sobre la evolución de la música hasta la creación de la IA",
+  "Estamos en el reproductor. Te enterarás sobre la IA en la música, canciones hechas con IA y demandas por copyright.",
+  "Mira! Se ha desbloquedo otra aplicación. Vayamos a ver que es.¡Que emocionante!",
 ];
 
 const cuadro = document.getElementById("loop-dialogo");
+const loop = document.querySelector(".loop");
 
 let indice = 0;
 
-cuadro.style.display = 'none'; 
+// cuadro.style.display = 'none'; 
 
-setTimeout(() => {
-  cuadro.style.display = 'block'; 
-  console.log("Loop habla!");
-}, 2000); 
+// setTimeout(() => {
+//   cuadro.style.display = 'block'; 
+//   console.log("Loop habla!");
+// }, 2000); 
 
-cuadro.addEventListener("click", () => {
-  indice++;
+// cuadro.addEventListener("click", () => {
+//   indice++;
 
-  if (indice < dialogos.length) {
-    cuadro.textContent = dialogos[indice];
-  } else {
-    cuadro.style.display = "none";
-    //HACER CLICKEABLE Y ACCESIBLE EL NUCLEO 1
-  }
-  });
+//   if (indice < dialogos.length) {
+//     cuadro.textContent = dialogos[indice];
+//   } else {
+//     cuadro.style.display = "none";
+//     //HACER CLICKEABLE Y ACCESIBLE EL NUCLEO 1
+//   }
+//   });
 });
