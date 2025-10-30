@@ -1,30 +1,32 @@
 document.addEventListener("DOMContentLoaded", () => {
+
+let indice = 0;
   
 const dialogos = [
   "Estamos en el reproductor. Te enterarás sobre la IA en la música, canciones hechas con IA y demandas por copyright.",
   "Mira! Se ha desbloquedo otra aplicación. Vayamos a ver que es.¡Que emocionante!",
 ];
 
-const cuadro = document.getElementById("loop-dialogo");
+const cuadro = document.getElementById("dialogo");
 const loop = document.querySelector(".loop");
 
-let indice = 0;
+function renderDialogo(){
+  cuadro.textContent = dialogos[indice];
+ console.log("diálogo mostrado: " + dialogos[indice]);
+};
 
-// cuadro.style.display = 'none'; 
+//estoy tratando de que este código sea compatible con los otros nucleos
 
-// setTimeout(() => {
-//   cuadro.style.display = 'block'; 
-//   console.log("Loop habla!");
-// }, 2000); 
-
-// cuadro.addEventListener("click", () => {
-//   indice++;
-
-//   if (indice < dialogos.length) {
-//     cuadro.textContent = dialogos[indice];
-//   } else {
-//     cuadro.style.display = "none";
-//     //HACER CLICKEABLE Y ACCESIBLE EL NUCLEO 1
-//   }
-//   });
+if(getComputedStyle(loop).display === 'block'){
+  renderDialogo();
+  document.addEventListener("keydown", ()=>{
+    console.log("estas dando espacio");
+    if(indice === 0){
+      loop.style.display = 'none';
+      indice++;
+    }else if(indice >= dialogos.length -1){
+      indice = 0;
+    }
+  });
+};
 });
