@@ -22,16 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
         v.style.transform = `translateX(0px) translateZ(${FRONT_Z}px) rotateY(0deg) scale(${FRONT_ESCALA})`;
         v.style.opacity = '1';
         v.style.zIndex = String(1000);
-      } // SI ES UNA VENTANA DE ATRAS: 
-        else {
+      } // SI ES UNA VENTANA DE ATRAS (o adelante, pero cercana): 
+      else {
         v.classList.remove('front');
-        // giramos hacia la izquierda o derecha según el offset
         const dir = offset < 0 ? 1 : -1; 
         const x = offset * ESPACIADO_X;
         const z = -absOff * ESPACIADO_Z;
         const rotY = dir * ROT_Y; 
         v.style.transform = `translateX(${x}px) translateZ(${z}px) rotateY(${rotY}deg) scale(1)`;
-        v.style.opacity = String(Math.max(0.35, 1 - absOff * 0.25));
+        v.style.opacity = String(Math.max(0.20, 1 - absOff * 0.25));
         v.style.zIndex = String(900 - absOff);
       }
     });
@@ -62,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     actualizarVista();
   }, { passive: false });
 
-  // CON FLECHAS DEL TECLADO  
+  // MOVER CON FLECHAS DEL TECLADO  
   //window.addEventListener('keydown', (e) => {
   //  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
   //    indice = Math.min(ventanas.length - 1, indice + 1);

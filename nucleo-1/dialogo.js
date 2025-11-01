@@ -7,13 +7,15 @@ const dialogos = [
 ];
 
 const cuadro = document.getElementById("loop-dialogo");
+const loop = document.querySelector(".loop-img");
 
 let indice = 0;
 
 cuadro.style.display = 'none'; 
 
 setTimeout(() => {
-  cuadro.style.display = 'block'; 
+  cuadro.style.display = 'block';
+  loop.style.display = 'block'; 
   console.log("Loop habla!");
 }, 2000); 
 
@@ -24,7 +26,8 @@ cuadro.addEventListener("click", () => {
     cuadro.textContent = dialogos[indice];
   } else {
     cuadro.style.display = "none";
-    //HACER CLICKEABLE Y ACCESIBLE EL NUCLEO 1
+    //Hacer cliockeable y accesible el nucleo 1 despues d que se clickeen todos los dialogos  
+    widgetClickeable();
   }
   });
 });
