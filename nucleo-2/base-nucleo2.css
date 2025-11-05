@@ -125,7 +125,7 @@
 }
 
 /*----------INFORMACIÓN DE CADA CATEGORÍA----------*/
-.info-nucleo2 .copyright{
+.categoria{
     display: none;
 }
 
@@ -168,10 +168,18 @@
     }
 }
 
+.demanda2{
+    display: none;
+}
+
+.demanda1{
+    display: none;
+}
+
 /*----CONTENEDOR DERECHA----*/
 .info-nucleo2 .derecha{
 
-    padding: 1em;
+    padding: 1em 0.5em;
     color: white;
     width: 30%;
 }
@@ -184,6 +192,15 @@
         width: 100%;
         height: auto;
     }
+}
+
+.derecha .demandas ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0;
 }
 
 /*-----------MEDIA QUERY -------------- */
