@@ -62,13 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: false });
 
   // PARA MOVER CON FLECHAS DEL TECLADO  
-  //window.addEventListener('keydown', (e) => {
-  //  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-  //    indice = Math.min(ventanas.length - 1, indice + 1);
-  //    actualizarVista();
-  //  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-  //    indice = Math.max(0, indice - 1);
-  //    actualizarVista();
-  //  }
-  //});
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'y' || e.key === 'Y') {
+      indice = Math.min(ventanas.length - 1, indice + 1);
+      actualizarVista();
+    } else if (e.key === 'k' || e.key === 'K') {
+      indice = Math.max(0, indice - 1);
+      actualizarVista();
+    }
+  });
 });

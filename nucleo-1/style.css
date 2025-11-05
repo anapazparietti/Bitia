@@ -108,10 +108,11 @@ body{
 }
 
 .ventana {
-    display: none;
+  display: none;
   perspective:1400px;
   width: 600px;
   height: 350px;
+  flex-direction: row;
   position: fixed;  
   top: 50%;
   left: 50%;
@@ -137,16 +138,25 @@ body{
     height:100%;
     border-radius:10px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-    display: flex;
-    align-items:center;
-    justify-content:center;
     color:#fff;
     font-size:1.25rem;
+    overflow: hidden;
     backface-visibility:hidden;
     transition: transform 600ms cubic-bezier(.2,.9,.2,1), opacity 300ms ease;
     cursor:pointer;
     user-select:none;
 }
+
+.contenido-calendario{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 1rem;
+}
+
+.imagen-calendario img{
+    width: 100%;
+}
+
 
 .calendario-ventana:nth-child(1){ background: linear-gradient(135deg,#2F6892,#3c7dac); }
 .calendario-ventana:nth-child(2){ background: linear-gradient(135deg,#2F6892,#3c7dac); }
