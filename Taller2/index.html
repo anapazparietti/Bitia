@@ -390,7 +390,7 @@ window.addEventListener('keydown', e => {
     return;
   }
 
-  if (key === 'j' && !jTimeout) {
+  if (key === 'z' && !jTimeout) {
     jLongPress = false;
     jTimeout = setTimeout(() => {
       jLongPress = true;
@@ -404,17 +404,17 @@ window.addEventListener('keydown', e => {
   }
 
   if (mode === 'grid') {
-    if (key === 'd') { currentRow = clampMod(currentRow + 1, ROWS); updateCursor(); }
-    else if (key === 'a') { currentRow = clampMod(currentRow - 1, ROWS); updateCursor(); }
+    if (key === '1') { currentRow = clampMod(currentRow + 1, ROWS); updateCursor(); }
+    else if (key === 'v') { currentRow = clampMod(currentRow - 1, ROWS); updateCursor(); }
   } else if (mode === 'rightbar') {
-    if (key === 'd') { rightBarIndex = clampMod(rightBarIndex + 1, rightBarImgs.length); updateRightbarFocus(); }
-    else if (key === 'a') { rightBarIndex = clampMod(rightBarIndex - 1, rightBarImgs.length); updateRightbarFocus(); }
+    if (key === '1') { rightBarIndex = clampMod(rightBarIndex + 1, rightBarImgs.length); updateRightbarFocus(); }
+    else if (key === 'v') { rightBarIndex = clampMod(rightBarIndex - 1, rightBarImgs.length); updateRightbarFocus(); }
   }
 });
 
 window.addEventListener('keyup', e => {
   const key = e.key.toLowerCase();
-  if (key === 'j' && jTimeout) {
+  if (key === 'z' && jTimeout) {
     clearTimeout(jTimeout);
     jTimeout = null;
 
