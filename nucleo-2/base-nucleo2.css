@@ -1,18 +1,38 @@
-body {
-    background-color: #7c8597;
-}
+
+/*----estilo nucleo 2-----*/
 
 .nucleo-2 {
     overflow: hidden;
     /* acá modificaría la vista de todo*/
+
+    position: absolute;
+    top: 0;
+    padding-top: 4vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%; /* tamaño base del diseño */
+    height: 100%; /* altura base */
+
 }
+
+/*-------PESTAÑA NUCLEO 2------*/
+.pestaña-nucleo2{
+    width: 16%;
+    height: auto;
+
+    img{
+        width: 100%;
+        height: auto;
+    }
+}
+
 /*-----------LOOP------------*/
 .loop{
     display:block;
     width: auto;
     position: fixed;
-    bottom: 2%;
-    left: 22%;
+    bottom: 15%;
+    left: 20%;
     z-index: 1000;
 }
 
@@ -48,15 +68,12 @@ body {
   bottom: -30px;
 }
 
-
-
 /*----------REPRODUCTOR------------*/
 .nucleo-2 .reproductor{
     position: absolute;
-    top: 5vh;
     left: 50%;
     transform: translateX(-50%);
-    width: 55%;
+    width: 60%;
     height: auto;
 }
 
@@ -105,6 +122,68 @@ body {
 .nucleo-2 .contenedor-botones .selected {
   transform: scale(0.97);
   background: #243A92;
+}
+
+/*----------INFORMACIÓN DE CADA CATEGORÍA----------*/
+.info-nucleo2 .copyright{
+    display: none;
+}
+
+.info-nucleo2{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    top: 7.62%;
+    left: 12.8%;
+    width: 93.5%;
+    height:70%;
+    gap:0;
+
+    h1{
+        font-size: 1.5rem;
+        margin-bottom: 0.5em;
+    }
+    h2{
+        font-size: 1.2rem;
+        margin-bottom: 0.5em;
+    }
+}
+
+/*-----CONTENEDOR CENTRO----*/
+.info-nucleo2 .centro{
+    width:60%;
+    padding: 1em 0.5em;
+
+    h1, h2 {
+        color: white;
+    }
+}
+
+.centro .video{
+    width: 100%;
+    height: auto;
+    video{
+        width: 100%;
+        height: auto;
+    }
+}
+
+/*----CONTENEDOR DERECHA----*/
+.info-nucleo2 .derecha{
+
+    padding: 1em;
+    color: white;
+    width: 30%;
+}
+
+
+.derecha .visual{
+    width: 100%;
+    height: auto;
+    video{
+        width: 100%;
+        height: auto;
+    }
 }
 
 /*-----------MEDIA QUERY -------------- */
