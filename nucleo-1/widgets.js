@@ -1,7 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {
-  
-  let ventanaActiva = null;
+  function widgetClickeable() {
 
+  let ventanaActiva = null;
   const aplicacion = document.querySelectorAll('.widget');
 
   aplicacion.forEach(aplicaciones => {
@@ -19,4 +18,4 @@ document.addEventListener("DOMContentLoaded", () => {
       ventanaActiva = null;
     }  
   });
-});
+}
