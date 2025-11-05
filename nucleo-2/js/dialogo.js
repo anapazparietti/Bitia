@@ -19,7 +19,7 @@ function renderDialogo(){
 
 if(getComputedStyle(loop).display === 'block'){
   renderDialogo();
-  document.addEventListener("keydown", ()=>{
+  document.addEventListener("keydown", (event)=>{ //falta definir con que tecla avanzas el dialogo o si es automatico
     console.log("estas dando espacio");
     if(indice === 0){
       loop.style.display = 'none';
