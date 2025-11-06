@@ -23,18 +23,39 @@ imagenLoop.style.display = 'none';
     console.log("Loop habla!");
   }, 2000); 
 
-  cuadro.addEventListener("click", () => {
-  indice++;
-  indiceLoop++;
+  cuadro.tabIndex = 0;
+  cuadro.focus();
 
-  if (indice < dialogos.length) {
-    cuadro.textContent = dialogos[indice];
-    imagenLoop.src = loopImagenes[indiceLoop];
+  cuadro.addEventListener('keydown', (e) => {
+  if (e.key === 'y' || e.key === 'Y') {
+    indice++;
+    indiceLoop++;
+
+    if (indice < dialogos.length) {
+      cuadro.textContent = dialogos[indice];
+      imagenLoop.src = loopImagenes[indiceLoop];
     } else {
-    cuadro.style.display = "none";
-    imagenLoop.style.display = "none";
-    //Hacer cliockeable y accesible el nucleo 1 despues d que se clickeen todos los dialogos  
-    widgetClickeable();
+      cuadro.style.display = "none";
+      imagenLoop.style.display = "none";
+      widgetClickeable();
     }
-  });
+  }
+});
+
+  // ========== CON CLICK ==========
+
+  //cuadro.addEventListener("click", () => {
+  //indice++;
+  //indiceLoop++;
+
+  //if (indice < dialogos.length) {
+    //cuadro.textContent = dialogos[indice];
+    //imagenLoop.src = loopImagenes[indiceLoop];
+    //} else {
+    //cuadro.style.display = "none";
+    //imagenLoop.style.display = "none";
+    //Hacer cliockeable y accesible el nucleo 1 despues d que se clickeen todos los dialogos  
+    //widgetClickeable();
+    //}
+  //});
 });
