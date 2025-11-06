@@ -28,24 +28,12 @@ body{
     background-size: cover;
 }
 
-.rightbar{
+.widgets{
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
     justify-content: end;
     align-items: center;
     gap: 2rem;
-}
-
-.widget img{
-    width: 115px;
-    border-radius:10px;
-    transition:transform .15s, box-shadow .15s;
-}
-
-.widget img.focused{
-    outline:4px solid rgba(255,255,255,0.7);
-    transform:scale(1.05);
-    box-shadow:0 8px 20px rgba(0,0,0,0.25);
 }
 
 .widget{
@@ -120,7 +108,7 @@ body{
 }
 
 .ventana {
-  display: none;
+  display: block;
   perspective:1400px;
   width: 600px;
   height: 350px;
