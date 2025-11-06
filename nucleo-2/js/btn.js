@@ -26,6 +26,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  selectedButton = buttons[0];
+  selectedButton.classList.add("selected");
+
+
   // --- Selección de demanda ---
   const demanda1 = document.getElementById("demanda1");
   const demanda2 = document.getElementById("demanda2");

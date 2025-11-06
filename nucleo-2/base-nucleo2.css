@@ -149,6 +149,10 @@
     }
 }
 
+.copyright{
+ display: block;
+}
+
 /*-----CONTENEDOR CENTRO----*/
 .info-nucleo2 .centro{
     width:60%;
@@ -157,6 +161,10 @@
     h1, h2 {
         color: white;
     }
+}
+.centro .copyright p{
+    color: white;
+    margin-top: 1em;
 }
 
 .centro .video{
@@ -174,6 +182,11 @@
 
 .demanda1{
     display: none;
+}
+
+.centro .canciones .hide-msj{
+    color: white;
+    margin-bottom: 1em;
 }
 
 /*----CONTENEDOR DERECHA----*/
