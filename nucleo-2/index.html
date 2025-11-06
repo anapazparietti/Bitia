@@ -9,7 +9,6 @@
 <body>
 
 <main class="desktop">
-        
         <aside class="widgets">
             <div class="widget">
                 <img src="../img/calendar-widget.png" alt="">
@@ -41,39 +40,67 @@
         <img src="img/reproductor.png" alt="reproductor de música Nucleo 3">
          <!-- controles del reproductor -->
         <ol class="contenedor-botones">
-            <li> <button class="btn">Copyright</button> </li>
-            <li> <button class="btn">Canciones</button> </li>
-            <li> <button class="btn">Demandas</button> </li>
+            <li> <button class="btn" id="copyright">Copyright</button> </li>
+            <li> <button class="btn" id="canciones">Canciones</button> </li>
+            <li> <button class="btn" id="demandas">Demandas</button> </li>
         </ol>
         </div>
     <!-- INFORMACION SOBRE EL NUCLEO 2 -->
      <div class="info-nucleo2">
     <div class="centro">
-        <article class="copyright">
+        <article class="copyright categoria">
             <h1>IA en la música</h1>
             <h2>¿Robo legalizado?</h2>
+            <p>En la música hay más control, menos fragmentación de derechos y tradición de licenciamiento.Esto hace que la batalla legal sea más difícil para las IA musicales que para empresas de texto o imágenes.</p>
         </article>
-        <article class="canciones"></article>
-        <article class="demandas">
+        <article class="categoria canciones">
+            <h2>Canciones</h2>
+            <h1>Hechas con IAs musicales y reales</h1>
+            <ul>
+                <li><button><img src="img/dust.png" alt=""></button>
+                <div class="hide-msj">
+                Es una banda creada con IA.Su tema “Dust on the Wind” se volvió viral en 2025 y reveló cómo la IA puede generar música, voces e imágenes, abriendo el debate sobre autoría y creatividad artificial.
+                </div>
+                </li>
+                <li><button><img src="img/rumbaCongo.png" alt=""></button></li>
+                <li><button><img src="img/heart.png" alt=""></button></li>
+                <li><button><img src="img/nostalgia.png" alt=""></button></li>
+                <li><button><img src="img/pasarella.png" alt=""></button></li>
+            </ul>
+        </article>
+        <article class="demandas categoria">
             <h2>Demanda</h2>
-            <h1>El caso Gilbert O’Sullivan vs. Biz Markie</h1>
-            <div class="video">
-                <video src="img/video1.mp4" controls></video>
+            <div class="demanda1">
+                <h1>El caso Gilbert O’Sullivan vs. Biz Markie</h1>
+                <div class="video">
+                    <video src="img/video1.mp4" controls></video>
+                </div>
+            </div>
+            <div class="demanda2">
+                <h1>RIAA vs. Suno y Udio</h1>
+                <div class="video">
+                    <video src="img/video2.mp4" controls></video>
+                </div>
             </div>
         </article>
      </div>
      <div class="derecha">
-        <article class="copyright">
+        <article class="copyright categoria">
             <div class="visual">
-                <video src="img/efecto1.mp4" autoplay loop></video>
+                <video src="img/efecto1.mp4" autoplay loop muted></video>
             </div>
         </article>
-        <article class="canciones"></article>
-        <article class="demandas">
-            <ol>
-                <li></li>
-                <li></li>
-            </ol>
+        <article class="categoria canciones">
+            <div class="visual">
+                <video src="img/dustontheWind.mp4" controls></video>
+            </div>
+        </article>
+        <article class="demandas categoria">
+            <ul>
+                <li><img id="demanda1" src="img/demanda1.png" alt=""></li>
+                <li><img id="demanda2" src="img/demanda2.png" alt=""></li> 
+                <!-- no se si me conviene cambiar a botones aca -->
+            </ul>
         </article>
      </div>
      </div>
