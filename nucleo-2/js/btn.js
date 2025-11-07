@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
       selectedButton.classList.add("selected"); //se le añade la clase selected para aplicar el estilo de botón activo.
 
       // Mostrar solo la categoría correspondiente
-      const id = button.id; // copyright, canciones, demandas
+      const id = button.id; // copyright, canciones, demandas guarda el id del botón clicado
       categories.forEach(cat => {
         if (cat.classList.contains(id)) {
           cat.style.display = "block";

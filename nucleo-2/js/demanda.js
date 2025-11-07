@@ -26,4 +26,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- Estado inicial ---
   categories.forEach(cat => (cat.style.display = "none"));
+
+//cuando se abre otra demanda, cerrar la activa y que vuelva al estado inicial
+
+//cuando se va a la categoría canciones o copyright, cerrar cualquier demanda activa y vuelven a su estado inicial
+
+
 });
