@@ -1,35 +1,75 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // --- Selección de demanda ---
-  const demanda1 = document.getElementById("demanda1");
-  const demanda2 = document.getElementById("demanda2");
 
-  const video1 = document.querySelector(".demanda1");
-  const video2 = document.querySelector(".demanda2");
+    // acá me conviene la lógica del calendario que hice en el trabajo anterior
 
-  [demanda1, demanda2].forEach(demanda => {
-    demanda.addEventListener("click", () => {
-      if (demanda === demanda1) {
-        console.log("demanda 1 seleccionada");
-        demanda1.src = "img/demanda1-selected.png";
-        video1.style.display = "block";
-        video2.style.display = "none";
-        demanda2.src = "img/demanda2.png";
-      } else {
-        console.log("demanda 2 seleccionada");
-        demanda1.src = "img/demanda1.png";
-        demanda2.src = "img/demanda2-selected.png";
-        video1.style.display = "none";
-        video2.style.display = "block";
-      }
+    // --- Datos de las demandas ---
+    const demandaInfo = [
+        {titulo: "El caso Gilbert O’Sullivan vs. Biz Markie", video: "video/video1.mp4"},
+        {titulo: "RIAA vs. Suno y Udio", video: "video/video2.mp4"}
+    ];
+
+    const demanda = document.getElementById("cuerpo-demanda");
+    const demandaBtn = document.querySelectorAll(".btn-demanda");
+
+    let activeIndex = null; // guarda el índice de la demanda activa
+
+    // --- función para mostrar una demanda ---
+    function renderDemanda(index) {
+        const demandaVisible = demandaInfo[index];
+        demanda.innerHTML = `
+            <h1>${demandaVisible.titulo}</h1>
+            <div class="video">
+                <video src="${demandaVisible.video}" controls autoplay></video>
+            </div>
+        `;
+    }
+
+    // --- función para cerrar (resetear) una demanda ---
+    function resetDemanda() {
+        demanda.innerHTML = ""; // borra el contenido
+        activeIndex = null;     // no hay demanda activa
+    }
+
+    // --- evento al hacer click en los botones de demanda ---
+    demandaBtn.forEach((btn, i) => {
+        btn.addEventListener("click", () => {
+
+            // Si el usuario hace click en la misma demanda, se cierra (toggle)
+            if (activeIndex === i) {
+                resetDemanda();
+                btn.src = `img/demanda${i + 1}.png`; // vuelve a la imagen no seleccionada
+                activeIndex = null;
+                return;
+            }
+
+            // Si había otra demanda activa, la cierra antes
+            if (activeIndex !== null) {
+                demandaBtn[activeIndex].src = `img/demanda${activeIndex + 1}.png`; // vuelve a la imagen no seleccionada
+                resetDemanda();
+            }
+
+            // Abre la nueva demanda
+            btn.src = `img/demanda${i + 1}-selected.png`; // cambia a la imagen seleccionada
+            renderDemanda(i);
+            activeIndex = i;
+        });
     });
-  });
 
-  // --- Estado inicial ---
-  categories.forEach(cat => (cat.style.display = "none"));
+    // --- cerrar demandas al cambiar de categoría ---
+    const copyright = document.getElementById("copyright");
+    const canciones = document.getElementById("canciones");
 
-//cuando se abre otra demanda, cerrar la activa y que vuelva al estado inicial
+    function closeActiveDemanda() {
+        // si hay una demanda activa, la cierra
+        if (activeIndex !== null) {
+            demandaBtn[activeIndex].src = `img/demanda${activeIndex + 1}.png`; // vuelve a la imagen no seleccionada
+            resetDemanda();
+        }
+    }
 
-//cuando se va a la categoría canciones o copyright, cerrar cualquier demanda activa y vuelven a su estado inicial
-
+    if (copyright)
+        copyright.addEventListener("click", closeActiveDemanda);
+    if (canciones)
+        canciones.addEventListener("click", closeActiveDemanda);
 
 });

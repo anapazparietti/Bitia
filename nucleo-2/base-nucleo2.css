@@ -241,7 +241,15 @@
     display: flex;
     flex-direction: column;
     row-gap: 0;
+    button{
+        background: none;
+        border: none;
+        width: 100%;
+        height: auto;
+    }
 }
+
+
 
 /*-----------MEDIA QUERY -------------- */
 /* Desktop full screen*/
