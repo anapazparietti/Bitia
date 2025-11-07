@@ -230,6 +230,9 @@
     }
 }
 
+#song-video video{
+    display: none;
+}
 
 .derecha .demandas ul{
     list-style: none;

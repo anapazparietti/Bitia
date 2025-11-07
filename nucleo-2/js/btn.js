@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  let selectedButton = null;
+  let selectedButton = null; // Guarda el botón seleccionado actualmente
 
   const buttons = document.querySelectorAll(".btn");
   const categories = document.querySelectorAll(".categoria");
@@ -8,11 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
   buttons.forEach(button => {
     button.addEventListener("click", () => {
       // Cambiar estado visual del botón
-      if (selectedButton) {
-        selectedButton.classList.remove("selected");
+      if (selectedButton) { //si no es null
+        selectedButton.classList.remove("selected"); //se le quita la clase selected para remover el estilo de botón activo anterior.
       }
-      selectedButton = button;
-      selectedButton.classList.add("selected");
+      selectedButton = button; //Se actualiza selectedButton para que apunte al botón que acabas de clicar.
+      selectedButton.classList.add("selected"); //se le añade la clase selected para aplicar el estilo de botón activo.
 
       // Mostrar solo la categoría correspondiente
       const id = button.id; // copyright, canciones, demandas
