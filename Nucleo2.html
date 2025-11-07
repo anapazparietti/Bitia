@@ -4,6 +4,10 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Panel de composición - demo</title>
+
+<link rel="stylesheet" href="base-nucleo2.css">
+    <link rel="stylesheet" href="desktop.css">
+
 <style>
   :root{
     --bg:#f3f3f6;
@@ -30,7 +34,6 @@
     box-shadow:0 6px 24px rgba(0,0,0,0.08);
     display:flex;
     gap:18px;
-    background-image: url(Diseño/Frame\ 3.png);
     background-size: cover;
     padding-top: 40px;
     align-items:center;
@@ -38,6 +41,7 @@
     width: 115vh;
     border-radius: 10px;
     height: 84vh;
+    z-index: 2;
   }
 
   .container2 img{
@@ -124,11 +128,13 @@
     gap:10px;
     align-items:center;
     justify-content:center;
+    z-index: 20;
   }
   .rightbar img{
     width: 115px;
     border-radius:10px;
     transition:transform .15s, box-shadow .15s;
+    z-index: 20;
   }
   .rightbar img.focused{
     outline:4px solid rgba(255,255,255,0.7);
@@ -224,31 +230,120 @@
 }
 
 </style>
+
+<link rel="stylesheet" href="nucleo-1/style.css">
 </head>
 <body>
 
 <div class="container" tabindex="0">
   <div class="all">
     <div class="container2" tabindex="0">
-     <img src="Diseño/Frame 7 (1).png" alt="">
+      <div class="nucleo-2">
+<!-- FLOW HABLANDO -->
+         <div class="loop">
+            <div id="loop-dialogo" class="bubble bubble-bottom-left">
+                <p id="dialogo">Estamos en el reproductor. Te enterarás sobre la IA en la música, canciones hechas con IA y demandas por copyright.</p>
+            </div>  
+            <img src="../img/loop.png" alt="Imagen de loop, ayudante virtual">
+        </div>
+
+<!-- CONTENIDO DEL NUCLEO 2 -->
+    <div class="reproductor">
+     <!-- fondo del reproductor y botones-->
+        <div class="fondo">
+        <img src="img/reproductor.png" alt="reproductor de música Nucleo 3">
+         <!-- controles del reproductor -->
+        <ol class="contenedor-botones">
+            <li> <button class="btn" id="copyright">Copyright</button> </li>
+            <li> <button class="btn" id="canciones">Canciones</button> </li>
+            <li> <button class="btn" id="demandas">Demandas</button> </li>
+        </ol>
+        </div>
+    <!-- INFORMACION SOBRE EL NUCLEO 2 -->
+     <div class="info-nucleo2">
+    <div class="centro">
+        <article class="copyright categoria">
+            <h1>IA en la música</h1>
+            <h2>¿Robo legalizado?</h2>
+            <p>En la música hay más control, menos fragmentación de derechos y tradición de licenciamiento.Esto hace que la batalla legal sea más difícil para las IA musicales que para empresas de texto o imágenes.</p>
+        </article>
+        <article class="categoria canciones">
+            <h2>Canciones</h2>
+            <h1>Hechas con IAs musicales y reales</h1>
+            <ul>
+                <li><button><img src="img/dust.png" alt=""></button>
+                <div class="hide-msj">
+                Es una banda creada con IA.Su tema “Dust on the Wind” se volvió viral en 2025 y reveló cómo la IA puede generar música, voces e imágenes, abriendo el debate sobre autoría y creatividad artificial.
+                </div>
+                </li>
+                <li><button><img src="img/rumbaCongo.png" alt=""></button></li>
+                <li><button><img src="img/heart.png" alt=""></button></li>
+                <li><button><img src="img/nostalgia.png" alt=""></button></li>
+                <li><button><img src="img/pasarella.png" alt=""></button></li>
+            </ul>
+        </article>
+        <article class="demandas categoria">
+            <h2>Demanda</h2>
+            <div class="demanda1">
+                <h1>El caso Gilbert O’Sullivan vs. Biz Markie</h1>
+                <div class="video">
+                    <video src="img/video1.mp4" controls></video>
+                </div>
+            </div>
+            <div class="demanda2">
+                <h1>RIAA vs. Suno y Udio</h1>
+                <div class="video">
+                    <video src="img/video2.mp4" controls></video>
+                </div>
+            </div>
+        </article>
+     </div>
+     <div class="derecha">
+        <article class="copyright categoria">
+            <div class="visual">
+                <video src="img/efecto1.mp4" autoplay loop muted></video>
+            </div>
+        </article>
+        <article class="categoria canciones">
+            <div class="visual">
+                <video src="img/dustontheWind.mp4" controls></video>
+            </div>
+        </article>
+        <article class="demandas categoria">
+            <ul>
+                <li><img id="demanda1" src="img/demanda1.png" alt=""></li>
+                <li><img id="demanda2" src="img/demanda2.png" alt=""></li> 
+                <!-- no se si me conviene cambiar a botones aca -->
+            </ul>
+        </article>
+     </div>
+     </div>
+
+    </div>
+
+     
+
+</div>
+
+<!---------- BARRA DE TAREAS ---------->
     </div>
   </div>
 
   <aside class="rightbar" id="rightBar">
     <div><a href="#"><img src="" alt=""></a></div>
-    <div><a href="#"><img src="Diseño/Frame 4 (1).png" alt=""></a></div>
-    <div><a href="#"><img src="Diseño/Frame 5.png" alt=""></a></div>
-    <div><a href="indec.html"><img src="Diseño/Frame 6.png" alt=""></a></div>
+    <div><a href="Nucleo1.html"><img src="Diseño/Frame 4 (1).png" alt=""></a></div>
+    <div><a href="Nucleo2.html"><img src="Diseño/Frame 5.png" alt=""></a></div>
+    <div><a href="index.html"><img src="Diseño/Frame 6.png" alt=""></a></div>
   </aside>
 </div>
 
 <div class="barra"></div>
-
-<div class="loop" id="mensaje"><img src="Diseño/Frame 18 (2).png" alt=""></div>
+<!-- BOTÓN CENTRAL -->
+<div class="loop" id="mensaje"><img src="Diseño/Frame 18 (2).png" alt="" style="display: none !important;"></div>
 
 <!-- BOTÓN CENTRAL -->
 <div class="boton-centro">
-  <img src="Diseño/boton.png" alt="Botón central" id="botonCentral">
+  <img src="Diseño/boton.png" alt="Botón central" id="botonCentral" style="display: none !important;">
 </div>
 
 
@@ -380,7 +475,9 @@ function cambiarModo(nuevoModo){
 
 let jTimeout = null;
 let jLongPress = false;
-const jHoldThreshold = 2000; // 2 segundos
+let justChangedMode = false;
+const jHoldThreshold = 2000; // 2s
+const postChangeLock = 200;  // 🔹 tiempo de bloqueo después de cambiar modo
 
 window.addEventListener('keydown', e => {
   const key = e.key.toLowerCase();
@@ -394,13 +491,17 @@ window.addEventListener('keydown', e => {
     jLongPress = false;
     jTimeout = setTimeout(() => {
       jLongPress = true;
-      cambiarModo('rightbar'); // <- ahora deselecciona correctamente
+      cambiarModo(mode === 'grid' ? 'rightbar' : 'grid');
+      justChangedMode = true; // bloqueo temporal
+      setTimeout(() => justChangedMode = false, postChangeLock);
       jTimeout = null;
     }, jHoldThreshold);
   }
 
   if (key === 'x') {
-    cambiarModo(mode==='grid'?'rightbar':'grid');
+    cambiarModo(mode === 'grid' ? 'rightbar' : 'grid');
+    justChangedMode = true;
+    setTimeout(() => justChangedMode = false, postChangeLock);
   }
 
   if (mode === 'grid') {
@@ -414,27 +515,33 @@ window.addEventListener('keydown', e => {
 
 window.addEventListener('keyup', e => {
   const key = e.key.toLowerCase();
-  if (key === 'z' && jTimeout) {
-    clearTimeout(jTimeout);
-    jTimeout = null;
 
-    if (!jLongPress) {
-      // J corto → solo si no fue largo
-      if (mode === 'grid') {
-        window.location.href = 'emociones.html';
-      } else if (mode === 'rightbar') {
-        const target = rightBarImgs[rightBarIndex];
-        if (!target) return;
-        const parentLink = target.closest('a');
-        if (parentLink && parentLink.getAttribute('href') && parentLink.getAttribute('href') !== '#') {
-          window.location.href = parentLink.getAttribute('href');
-        } else {
-          activateRightbarItem();
-        }
+  if (key === 'z') {
+    // cancelar hold si no llegó al límite
+    if (jTimeout) {
+      clearTimeout(jTimeout);
+      jTimeout = null;
+    }
+
+    // si se cambió el modo hace muy poco, no ejecutar acción
+    if (justChangedMode || jLongPress) return;
+
+    // acción corta según modo ACTUAL
+    if (mode === 'grid') {
+      window.location.href = '#';
+    } else if (mode === 'rightbar') {
+      const target = rightBarImgs[rightBarIndex];
+      if (!target) return;
+      const parentLink = target.closest('a');
+      if (parentLink && parentLink.getAttribute('href') && parentLink.getAttribute('href') !== '#') {
+        window.location.href = parentLink.getAttribute('href');
+      } else {
+        activateRightbarItem();
       }
     }
   }
 });
+
 
 function activateRightbarItem(){
   const target=rightBarImgs[rightBarIndex];
@@ -568,7 +675,8 @@ updateIndicadorBotonCentral();
 
 </script>
 
-
+<script src="js/btn.js"></script>
+<script src="js/dialogo.js"></script>
 
 </body>
 </html>

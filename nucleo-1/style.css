@@ -108,7 +108,7 @@ body{
 }
 
 .ventana {
-  display: none;
+  display: block;
   perspective:1400px;
   width: 600px;
   height: 350px;

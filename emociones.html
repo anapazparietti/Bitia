@@ -241,6 +241,13 @@
   transform: translate(-50%, -50%);
 }
 
+.botones h1{
+  color: #fff;
+  font-size: 40px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+
+}
+
 .boton {
   width: 150px;
   transition: transform 0.3s ease, opacity 0.3s ease;
@@ -268,15 +275,15 @@
 <div class="container" tabindex="0">
   <div class="all">
     <div class="container2" tabindex="0">
-     <img src="Diseño/Frame 7 (1).png" alt="">
+     <img src="Diseño/Frame 7 (2).png" alt="">
     </div>
   </div>
 
   <aside class="rightbar" id="rightBar">
-    
-    <div><a href="#"><img src="Diseño/Frame 4 (1).png" alt=""></a></div>
-    <div><a href="#"><img src="Diseño/Frame 5.png" alt=""></a></div>
-    <div><a href="indec.html"><img src="Diseño/Frame 6.png" alt=""></a></div>
+    <div><a href="#"><img src="" alt=""></a></div>
+    <div><a href="Nucleo1.html"><img src="Diseño/Frame 4 (1).png" alt=""></a></div>
+    <div><a href="Nucleo2.html"><img src="Diseño/Frame 5.png" alt=""></a></div>
+    <div><a href="index.html"><img src="Diseño/Frame 6.png" alt=""></a></div>
   </aside>
 </div>
 
@@ -468,7 +475,7 @@ window.addEventListener('keyup', e => {
       const holdTime = Date.now()-jPressedTime;
       if(holdTime<jHoldThreshold){
         if(mode==='grid'){
-          const destino = ['emociones1.html','emociones2.html','emociones3.html'][indice];
+          const destino = ['emociones1.html','emociones1.html','emociones1.html'][indice];
           window.location.href = destino;
         } else if(mode==='rightbar'){
           const target = rightBarImgs[rightBarIndex];
