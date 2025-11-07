@@ -32,12 +32,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  const nucleo3 = document.querySelector("#nucleo3 img");
+
   // --- NUEVO CÓDIGO: click en demanda2 ---
   demanda2.addEventListener("click", () => {
     console.log("Click en demanda2 detectado, esperando 30 segundos...");
 
     setTimeout(() => {
       loop.style.display = "block"; // muestra el loop
+      nucleo3.src = "img/nucleo3-desbloqueado.png"; // cambia la imagen del widget
       indice = 1; // pasa al segundo diálogo
       renderDialogo(); // muestra el texto correspondiente
       console.log("Se muestra el loop con el diálogo 2.");

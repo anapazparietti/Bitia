@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => { 
-    
-    const songVideo = document.querySelector("#song-video video"); //HTMLVideoElement
+
+    const songVideo = document.getElementById("canciones-video"); //HTMLVideoElement
 
     const songBtn = document.querySelectorAll(".song"); 
     

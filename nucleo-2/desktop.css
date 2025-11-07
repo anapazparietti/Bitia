@@ -1,8 +1,10 @@
 /* ----estilo general----- */
-
+@import url('https://fonts.cdnfonts.com/css/segoe-ui-variable-static-display');
 
 html{
     font-size: 1rem;
+    font-family: 'Segoe UI Variable Static Display', sans-serif;
+    color: white;
 }
 
 *{

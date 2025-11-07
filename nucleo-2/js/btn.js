@@ -29,4 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
   selectedButton = buttons[0];//inicialmente el primer botón está seleccionado
   selectedButton.classList.add("selected");//se le añade la clase selected para aplicar el estilo de botón activo.
 
+
+  
+
 });

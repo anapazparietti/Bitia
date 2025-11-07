@@ -10,6 +10,7 @@ video = document.getElementById("copyright-video");
         switch(event.code){
             case "KeyP":
                 console.log("P pressed");
+
                 if(video.paused){
                     video.play();
                 }else{
@@ -24,9 +25,10 @@ video = document.getElementById("copyright-video");
         video.currentTime = 0;
     }
 
-    // --- pararvideo al cambiar de categoría ---
+    // --- parar video al cambiar de categoría ---
     const demandas = document.getElementById("demandas");
     const canciones = document.getElementById("canciones");
+    
 
     if (demandas){
         demandas.addEventListener("click", restartVideo);
@@ -34,5 +36,6 @@ video = document.getElementById("copyright-video");
     if (canciones){
         canciones.addEventListener("click", restartVideo);
     };
+
 
 });

@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         demanda.innerHTML = `
             <h1>${demandaVisible.titulo}</h1>
             <div class="video">
-                <video src="${demandaVisible.video}" autoplay></video>
+                <video src="${demandaVisible.video}" id="demandas-video" autoplay></video>
             </div>
         `;
     }
