@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const songVideo = document.querySelector("#song-video video"); //HTMLVideoElement
 
-    const songs = document.querySelectorAll(".song"); 
+    const songBtn = document.querySelectorAll(".song"); 
     
     const infoSong = document.querySelectorAll(".hide-msj");
 
@@ -41,11 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
         let visible = info.style.display === "block";
         if(!visible){ 
             infoSong[i].style.display = "block"; 
-            song.src = selectedStyle[i].img2;
+            songBtn[i].src = `${selectedStyle[i].img2}`;
             renderVideo(i); 
         } else { 
             infoSong[i].style.display = "none"; 
-            song.src = selectedStyle[i].img1;
+            songBtn[i].src = `${selectedStyle[i].img1}`;
             resetVideo(); 
         } 
     }
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let selectedButton = null;
     let selectedIndex = null;
 
-    songs.forEach((song, i) => {
+    songBtn.forEach((song, i) => {
         song.addEventListener("click", () => {
 
             // Si el usuario hace click en la misma canción activa, la cierra
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Si había otra canción seleccionada, la cierra antes
             if (selectedButton !== null && selectedIndex !== null) {
                 infoSong[selectedIndex].style.display = "none";
-                selectedButton.src = selectedStyle[selectedIndex].img1;
+                selectedButton.src = `${selectedStyle[selectedIndex].img1}`;
             }
 
             // Activa la nueva canción
@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (selectedButton !== null && selectedIndex !== null) {
             // Ejecuta la parte del else manualmente
             infoSong[selectedIndex].style.display = "none"; 
-            selectedButton.src = selectedStyle[selectedIndex].img1;
+            selectedButton.src = `${selectedStyle[selectedIndex].img1}`;
             resetVideo(); 
 
             // limpia las referencias
