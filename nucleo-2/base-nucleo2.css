@@ -83,6 +83,29 @@
     height: auto;
 }
 
+.extras{
+    position: absolute;
+    bottom: 4%;
+    left: 20%;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+}
+
+.extras .pausar{
+    background: none;
+    border: none;
+    position: relative;
+    width: 2.5rem;
+    height: auto;
+}
+
+.progreso{
+    position: relative;
+    width: 14rem;
+    height: auto;
+}
 
 /*-----BOTONES PARA IR A CADA SECCIÓN----*/
 .nucleo-2 .contenedor-botones{
@@ -154,6 +177,8 @@
 }
 
 /*-----CONTENEDOR CENTRO----*/
+
+
 .info-nucleo2 .centro{
     width:60%;
     padding: 1em 0.5em;
@@ -162,10 +187,7 @@
         color: white;
     }
 }
-.centro .copyright p{
-    color: white;
-    margin-top: 1em;
-}
+
 
 .centro .video{
     width: 100%;
@@ -185,6 +207,7 @@
 }
 
 .centro .canciones .hide-msj{
+    display: none;
     color: white;
     margin-bottom: 1em;
 }
@@ -206,6 +229,7 @@
         height: auto;
     }
 }
+
 
 .derecha .demandas ul{
     list-style: none;

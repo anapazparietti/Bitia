@@ -44,28 +44,46 @@
             <li> <button class="btn" id="canciones">Canciones</button> </li>
             <li> <button class="btn" id="demandas">Demandas</button> </li>
         </ol>
+
+<div class="extras">
+<button class="pausar"><img src="img/despausa.png" alt=""></button>
+<div class="progreso">
+    <img src="img/linea.png" alt="">
+</div>
+</div>
+
+
         </div>
     <!-- INFORMACION SOBRE EL NUCLEO 2 -->
      <div class="info-nucleo2">
     <div class="centro">
-        <article class="copyright categoria">
-            <h1>IA en la música</h1>
-            <h2>¿Robo legalizado?</h2>
-            <p>En la música hay más control, menos fragmentación de derechos y tradición de licenciamiento.Esto hace que la batalla legal sea más difícil para las IA musicales que para empresas de texto o imágenes.</p>
+        <article class="copyright categoria video">
+            <video src="video/copyright.mp4" controls></video>
         </article>
         <article class="categoria canciones">
             <h2>Canciones</h2>
             <h1>Hechas con IAs musicales y reales</h1>
             <ul>
-                <li><button><img src="img/dust.png" alt=""></button>
-                <div class="hide-msj">
-                Es una banda creada con IA.Su tema “Dust on the Wind” se volvió viral en 2025 y reveló cómo la IA puede generar música, voces e imágenes, abriendo el debate sobre autoría y creatividad artificial.
-                </div>
+                <li>
+                    <button class="song"><img src="img/dust.png" alt=""></button>
+                    <p class="hide-msj">Es una banda creada con IA.Su tema “Dust on the Wind” se volvió viral en 2025 y reveló cómo la IA puede generar música, voces e imágenes, abriendo el debate sobre autoría y creatividad artificial.</p>
                 </li>
-                <li><button><img src="img/rumbaCongo.png" alt=""></button></li>
-                <li><button><img src="img/heart.png" alt=""></button></li>
-                <li><button><img src="img/nostalgia.png" alt=""></button></li>
-                <li><button><img src="img/pasarella.png" alt=""></button></li>
+                <li>
+                    <button class="song"><img src="img/rumbaCongo.png" alt=""></button>
+                     <p class="hide-msj">Es una banda creada con IA.Su tema “Dust on the Wind” se volvió viral en 2025 y reveló cómo la IA puede generar música, voces e imágenes, abriendo el debate sobre autoría y creatividad artificial.</p>
+                </li>
+                <li>
+                    <button class="song"><img src="img/heart.png" alt=""></button>
+                     <p class="hide-msj">Es una banda creada con IA.Su tema “Dust on the Wind” se volvió viral en 2025 y reveló cómo la IA puede generar música, voces e imágenes, abriendo el debate sobre autoría y creatividad artificial.</p>
+                </li>
+                <li>
+                    <button class="song"><img src="img/nostalgia.png" alt=""></button>
+                     <p class="hide-msj">Es una banda creada con IA.Su tema “Dust on the Wind” se volvió viral en 2025 y reveló cómo la IA puede generar música, voces e imágenes, abriendo el debate sobre autoría y creatividad artificial.</p>
+                </li>
+                <li>
+                    <button class="song"><img src="img/pasarella.png" alt=""></button>
+                     <p class="hide-msj">Es una banda creada con IA.Su tema “Dust on the Wind” se volvió viral en 2025 y reveló cómo la IA puede generar música, voces e imágenes, abriendo el debate sobre autoría y creatividad artificial.</p>
+                </li>
             </ul>
         </article>
         <article class="demandas categoria">
@@ -73,13 +91,13 @@
             <div class="demanda1">
                 <h1>El caso Gilbert O’Sullivan vs. Biz Markie</h1>
                 <div class="video">
-                    <video src="img/video1.mp4" controls></video>
+                    <video src="video/video1.mp4" controls></video>
                 </div>
             </div>
             <div class="demanda2">
                 <h1>RIAA vs. Suno y Udio</h1>
                 <div class="video">
-                    <video src="img/video2.mp4" controls></video>
+                    <video src="video/video2.mp4" controls></video>
                 </div>
             </div>
         </article>
@@ -87,12 +105,12 @@
      <div class="derecha">
         <article class="copyright categoria">
             <div class="visual">
-                <video src="img/efecto1.mp4" autoplay loop muted></video>
+                <video src="video/efecto1.mp4" autoplay loop muted></video>
             </div>
         </article>
         <article class="categoria canciones">
-            <div class="visual">
-                <video src="img/dustontheWind.mp4" controls></video>
+            <div class="visual" id="song-video">
+                <video src="video/dustontheWind.mp4" controls></video>
             </div>
         </article>
         <article class="demandas categoria">
@@ -125,5 +143,6 @@
 <!-- Scripts -->
 <script src="js/btn.js"></script>
 <script src="js/dialogo.js"></script>
+<script src="js/songs.js"></script>
 </body>
 </html>
