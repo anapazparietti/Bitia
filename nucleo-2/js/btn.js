@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       selectedButton = button; //Se actualiza selectedButton para que apunte al botón que acabas de clicar.
       selectedButton.classList.add("selected"); //se le añade la clase selected para aplicar el estilo de botón activo.
+      
+      console.log(selectedButton);// acá es donde se actualiza
 
       // Mostrar solo la categoría correspondiente
       const id = button.id; // copyright, canciones, demandas guarda el id del botón clicado
@@ -28,6 +30,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   selectedButton = buttons[0];//inicialmente el primer botón está seleccionado
   selectedButton.classList.add("selected");//se le añade la clase selected para aplicar el estilo de botón activo.
+
+  console.log(selectedButton);// esto se actualiza cada vez que se hace click en un botón, 
+  //te devuelve el elemento html
+
+
+/* control de videos con el teclado */  
+videoCopyright = document.getElementById("copyright-video");
+
+    window.addEventListener("keydown", (event)=>{
+        if(event.defaultPrevented){ return; }
+        switch(event.code){
+            case "KeyP":
+                console.log("P pressed");
+            if(selectedButton && selectedButton.id === "copyright" && !loopIsVisible){
+                if(videoCopyright.paused){
+                    videoCopyright.play();
+                }else{
+                    videoCopyright.pause();
+                }
+              }
+                break;
+        }
+    });
 
 
   

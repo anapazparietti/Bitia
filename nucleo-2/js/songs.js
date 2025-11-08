@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         songVideo.play().catch(() => {/* autoplay might be blocked by browser */});
     }
+// me conviene que el poner pausa y play con la tecla p, este en este js ya que depende de si la información de la canción está visible o no.
 
     function resetVideo(){
         if(!songVideo) return;
@@ -42,11 +43,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if(!visible){ 
             infoSong[i].style.display = "block"; 
             songBtn[i].src = `${selectedStyle[i].img2}`;
-            renderVideo(i); 
+            renderVideo(i);
+             isVisible = true;
         } else { 
             infoSong[i].style.display = "none"; 
             songBtn[i].src = `${selectedStyle[i].img1}`;
-            resetVideo(); 
+            resetVideo();
+            isVisible = false;
         } 
     }
 
@@ -54,23 +57,28 @@ document.addEventListener("DOMContentLoaded", () => {
     let selectedButton = null;
     let selectedIndex = null;
 
+    let isVisible = false; // Variable global que indica si hay una canción visible
+
+
     songBtn.forEach((song, i) => {
         song.addEventListener("click", () => {
-
             // Si el usuario hace click en la misma canción activa, la cierra
             if (selectedIndex === i) {
                 styleChange(song, i);
+                pausarVideo();
                 selectedButton = null;
                 selectedIndex = null;
                 return;
             }
 
             // Si había otra canción seleccionada, la cierra antes
-            if (selectedButton !== null && selectedIndex !== null) {
+ /*           if (selectedButton !== null && selectedIndex !== null) {
                 infoSong[selectedIndex].style.display = "none";
                 selectedButton.src = `${selectedStyle[selectedIndex].img1}`;
             }
-
+*/
+            closeActiveSong();
+            
             // Activa la nueva canción
             styleChange(song, i);
             selectedButton = song;
@@ -93,6 +101,9 @@ document.addEventListener("DOMContentLoaded", () => {
             // limpia las referencias
             selectedButton = null;
             selectedIndex = null;
+            isVisible = false;
+        } else{
+            return;
         }
     }
 
@@ -101,5 +112,27 @@ document.addEventListener("DOMContentLoaded", () => {
         copyright.addEventListener("click", closeActiveSong); //“Cuando el usuario haga click en este elemento ejecutá la función closeActiveSong().”
     if (demandas)
         demandas.addEventListener("click", closeActiveSong);
+
+function pausarVideo(){
+    window.addEventListener("keydown", (event)=>{
+        if(event.defaultPrevented){ return; }
+        switch(event.code){
+            case "KeyP":
+            if(isVisible && !loopIsVisible){
+                console.log("P pressed");
+                if(songVideo.paused){
+                    songVideo.play();
+                }else{
+                    songVideo.pause();
+                }
+            }else{
+                return;
+            }
+                break;
+        }
+    });
+};
+
+pausarVideo();
 
 });

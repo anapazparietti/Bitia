@@ -5,21 +5,6 @@ It lets you know what key, what mouse button, or what element was involved in th
 
 video = document.getElementById("copyright-video");
 
-    window.addEventListener("keydown", (event)=>{
-        if(event.defaultPrevented){ return; }
-        switch(event.code){
-            case "KeyP":
-                console.log("P pressed");
-
-                if(video.paused){
-                    video.play();
-                }else{
-                    video.pause();
-                }
-                break;
-        }
-    });
-
     function restartVideo(){
         video.pause();
         video.currentTime = 0;
