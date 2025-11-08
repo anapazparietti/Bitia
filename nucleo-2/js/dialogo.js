@@ -8,6 +8,9 @@ let loopIsVisible = true;
 
 document.addEventListener("DOMContentLoaded", () => {
 
+  const songVideo = document.getElementById("canciones-video");
+
+
   let indice = 0;
   
   const dialogos = [
@@ -28,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (getComputedStyle(loop).display === "block") {
     renderDialogo();
     loopIsVisible = true;
+    if(!songVideo.paused){songVideo.pause();}
     document.addEventListener("keydown", (event) => {
       if (event.code === "KeyZ") {
         console.log("Presionaste Z");
@@ -54,7 +58,10 @@ function ultimoDialogo(){
       renderDialogo(); // muestra el texto correspondiente
       console.log("Se muestra el loop con el diálogo 2.");
       loopIsVisible = true;
+      if(!songVideo.paused){songVideo.pause();}
     }, 30000); // 30 segundos
 }
+
+
 
 });

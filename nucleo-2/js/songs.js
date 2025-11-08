@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function styleChange(song, i){
         let info = infoSong[i];
         let visible = info.style.display === "block";
-        if(!visible){ 
+        if(!visible && !loopIsVisible){ 
             infoSong[i].style.display = "block"; 
             songBtn[i].src = `${selectedStyle[i].img2}`;
             renderVideo(i);
@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     songBtn.forEach((song, i) => {
         song.addEventListener("click", () => {
             // Si el usuario hace click en la misma canción activa, la cierra
+
             if (selectedIndex === i) {
                 styleChange(song, i);
                 pausarVideo();
@@ -70,13 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 selectedIndex = null;
                 return;
             }
-
-            // Si había otra canción seleccionada, la cierra antes
- /*           if (selectedButton !== null && selectedIndex !== null) {
-                infoSong[selectedIndex].style.display = "none";
-                selectedButton.src = `${selectedStyle[selectedIndex].img1}`;
-            }
-*/
             closeActiveSong();
             
             // Activa la nueva canción
