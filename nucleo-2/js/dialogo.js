@@ -1,15 +1,16 @@
-let loopIsVisible = true;
+var loopIsVisible = true;
 
- // ✅ Mostrar el valor de loopIsVisible cada segundo
-  setInterval(() => {
-    console.log("loopIsVisible:", loopIsVisible);
-  }, 1000);
-
+// ✅ Mostrar el valor de loopIsVisible cada segundo
+setInterval(() => {
+  console.log("loopIsVisible:", loopIsVisible);
+}, 1000);
 
 document.addEventListener("DOMContentLoaded", () => {
 
   const songVideo = document.getElementById("canciones-video");
-
+  const cuadro = document.getElementById("dialogo");
+  const loop = document.querySelector(".loop");
+  const nucleo3 = document.getElementById("nucleo3");
 
   let indice = 0;
   
@@ -18,20 +19,34 @@ document.addEventListener("DOMContentLoaded", () => {
     "Mira! Se ha desbloquedo otra aplicación. Vayamos a ver que es. ¡Qué emocionante!",
   ];
 
-  const cuadro = document.getElementById("dialogo");
-  const loop = document.querySelector(".loop");
-  const nucleo3 = document.getElementById("nucleo3");
-
   function renderDialogo() {
     cuadro.textContent = dialogos[indice];
     console.log("Diálogo mostrado: " + dialogos[indice]);
   }
 
-  // Mostrar el diálogo inicial si loop está visible
+  // --- 🔁 Función para pausar todos los videos si loopIsVisible === true ---
+  function pauseVideosIfLoopVisible() {
+    if (loopIsVisible) {
+      const songVideo = document.getElementById("canciones-video");
+      const demandaVideo = document.getElementById("demandas-video");
+
+      if (songVideo && !songVideo.paused) {
+        songVideo.pause();
+        console.log("⏸ Video de canciones pausado por loopIsVisible");
+      }
+      if (demandaVideo && !demandaVideo.paused) {
+        demandaVideo.pause();
+        console.log("⏸ Video de demandas pausado por loopIsVisible");
+      }
+    }
+  }
+
+  // --- Mostrar el diálogo inicial si el loop está visible ---
   if (getComputedStyle(loop).display === "block") {
     renderDialogo();
     loopIsVisible = true;
-    if(!songVideo.paused){songVideo.pause();}
+    pauseVideosIfLoopVisible();
+
     document.addEventListener("keydown", (event) => {
       if (event.code === "KeyZ") {
         console.log("Presionaste Z");
@@ -41,27 +56,32 @@ document.addEventListener("DOMContentLoaded", () => {
           ultimoDialogo();
           loopIsVisible = false;
         } else {
-           loop.style.display = "none";
-           loopIsVisible = false;
+          loop.style.display = "none";
+          loopIsVisible = false;
         }
-        }
+      }
     });
-  }else{
+  } else {
     loopIsVisible = false;
   }
 
-function ultimoDialogo(){
-  console.log("el ultimo diálogo se muestra después de 30 segundos");
-  setTimeout(() => {
+  // --- Último diálogo después de 30 segundos ---
+  function ultimoDialogo() {
+    console.log("El último diálogo se muestra después de 30 segundos");
+    setTimeout(() => {
       loop.style.display = "block"; // muestra el loop
-      nucleo3.src = "img/nucleo3-desbloqueado.png"; // cambia la imagen del widget
-      renderDialogo(); // muestra el texto correspondiente
+      nucleo3.src = "img/nucleo3-desbloqueado.png"; // cambia la imagen
+      renderDialogo();
       console.log("Se muestra el loop con el diálogo 2.");
       loopIsVisible = true;
-      if(!songVideo.paused){songVideo.pause();}
-    }, 30000); // 30 segundos
-}
+      pauseVideosIfLoopVisible();
+    }, 30000);
+  }
 
-
+  // --- 👁️ MutationObserver: detectar si aparece un nuevo video de demandas ---
+  const observer = new MutationObserver(() => {
+    pauseVideosIfLoopVisible();
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
 
 });

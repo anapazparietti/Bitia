@@ -22,6 +22,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 <video src="${demandaVisible.video}" id="demandas-video" autoplay></video>
             </div>
         `;
+
+        // --- Si isLoopVisible está activo, pausamos el video inmediatamente ---
+       
+
     }
 
     // --- función para cerrar (resetear) una demanda ---
@@ -34,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     demandaBtn.forEach((btn, i) => {
         btn.addEventListener("click", () => {
 
+            if(!loopIsVisible){
             // Si el usuario hace click en la misma demanda, se cierra (toggle)
             if (activeIndex === i) {
                 resetDemanda();
@@ -52,6 +57,9 @@ document.addEventListener("DOMContentLoaded", () => {
             btn.src = `img/demanda${i + 1}-selected.png`; // cambia a la imagen seleccionada
             renderDemanda(i);
             activeIndex = i;
+             const video = document.getElementById("demandas-video");
+            } 
+
         });
     });
 
@@ -71,5 +79,8 @@ document.addEventListener("DOMContentLoaded", () => {
         copyright.addEventListener("click", closeActiveDemanda);
     if (canciones)
         canciones.addEventListener("click", closeActiveDemanda);
+
+
+
 
 });

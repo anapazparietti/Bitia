@@ -35,21 +35,35 @@ document.addEventListener("DOMContentLoaded", () => {
   //te devuelve el elemento html
 
 
-/* control de videos con el teclado */  
-videoCopyright = document.getElementById("copyright-video");
-
-    window.addEventListener("keydown", (event)=>{
-        if(event.defaultPrevented){ return; }
-        switch(event.code){
-            case "KeyP":
-                console.log("P pressed");
-            if(selectedButton && selectedButton.id === "copyright" && !loopIsVisible){
+window.addEventListener("keydown", (event)=>{
+  if(event.defaultPrevented){ return; }
+    switch(event.code){
+      case "KeyP":
+      console.log("P pressed");
+      if(!loopIsVisible){
+       /* control de videos con el teclado */  
+        const videoCopyright = document.getElementById("copyright-video");
+        const videoDemandas = document.getElementById("demandas-video");
+   
+        if(selectedButton && selectedButton.id === "copyright"){
                 if(videoCopyright.paused){
                     videoCopyright.play();
                 }else{
                     videoCopyright.pause();
                 }
               }
+            if (videoDemandas && !videoDemandas.paused) {
+                videoDemandas.pause();
+                console.log("Pausé demandas-video");
+             }else{
+                videoDemandas.play();
+                console.log("Reproduje demandas-video");
+             }
+            
+
+}else { console.log("NO se pausa porque loopIsVisible es true");}
+
+
                 break;
         }
     });
