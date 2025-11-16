@@ -1,49 +1,98 @@
+let enCancionApp = false;
+let enDemandasApp = false;
+
 document.addEventListener("DOMContentLoaded", () => {
   let selectedButton = null; // Guarda el botón seleccionado actualmente
+  let index=0;
 
   const buttons = document.querySelectorAll(".btn");
   const categories = document.querySelectorAll(".categoria");
 
-  // --- Botones de categoría ---
-  buttons.forEach(button => {
-    button.addEventListener("click", () => {
-      // Cambiar estado visual del botón
-      if (selectedButton) { //si no es null
-        selectedButton.classList.remove("selected"); //se le quita la clase selected para remover el estilo de botón activo anterior.
-      }
-      selectedButton = button; //Se actualiza selectedButton para que apunte al botón que acabas de clicar.
-      selectedButton.classList.add("selected"); //se le añade la clase selected para aplicar el estilo de botón activo.
-      
-      console.log(selectedButton);// acá es donde se actualiza
+//--- FUNCIÓN: Actualizar selección visual + categoría visible-----
+  function actualizarCategoria() {
+    // Quitar "selected" del botón anterior
+    if (selectedButton) {
+      selectedButton.classList.remove("selected");
+    }
 
-      // Mostrar solo la categoría correspondiente
-      const id = button.id; // copyright, canciones, demandas guarda el id del botón clicado
-      categories.forEach(cat => {
-        if (cat.classList.contains(id)) {
-          cat.style.display = "block";
-        } else {
-          cat.style.display = "none";
-        }
-      });
+    // Marcar el nuevo botón
+    selectedButton = buttons[index];
+    selectedButton.classList.add("selected");
+
+    console.log("Botón seleccionado:", selectedButton.id);
+
+    // Mostrar solo la categoría correspondiente
+    const id = selectedButton.id;
+    categories.forEach(cat => {
+      cat.style.display = cat.classList.contains(id) ? "block" : "none";
+    });
+  }
+
+  //--- CLICK en botones ---
+   buttons.forEach((button, i) => {
+    button.addEventListener("click", () => {
+      index = i;
+      actualizarCategoria();
     });
   });
 
-  selectedButton = buttons[0];//inicialmente el primer botón está seleccionado
-  selectedButton.classList.add("selected");//se le añade la clase selected para aplicar el estilo de botón activo.
+  // Seleccionar inicialmente la primera categoría
+  actualizarCategoria();
 
-  console.log(selectedButton);// esto se actualiza cada vez que se hace click en un botón, 
-  //te devuelve el elemento html
+  
+// --- WHEEL GLOBAL ---
+//control para debouncing (no permitir cambios muy rápidos).
+let lastRueda = 0;
+const RUEDA_DELAY = 40; // milisegundos
+  window.addEventListener("wheel", (e) => {
+//Usa performance.now() y compara con lastRueda para ignorar eventos si son muy seguidos.
+    const now = performance.now();
+    if (now - lastRueda < RUEDA_DELAY) {
+      e.preventDefault();
+      return;
+    }
+    lastRueda = now;
+
+    e.preventDefault(); // para evitar scroll de página.
+
+    if (e.deltaY > 0 && !loopIsVisible) {
+      index = (index + 1) % buttons.length; // siguiente
+    } else if (e.deltaY < 0 && !loopIsVisible) {
+      index = (index - 1 + buttons.length) % buttons.length; // anterior
+    }
+
+    if(index ===1){
+      enCancionApp = true;
+      window.resetSongSelection = true;
+    }else{
+      enCancionApp = false;
+      closeActiveSong();
+      
+    }
+    if(index ===2){
+      enDemandasApp = true;
+    }else{   
+      enDemandasApp = false;
+      closeActiveDemanda();
+    }
 
 
+    actualizarCategoria();
+  }, { passive: false }); // necesario para que preventDefault funcione
+
+
+
+  //--- TECLADO: tecla P para pausar/reproducir video copyright ---
 window.addEventListener("keydown", (event)=>{
-  if(event.defaultPrevented){ return; }
+  // if(event.defaultPrevented){ return; }
     switch(event.code){
-      case "KeyP":
-      console.log("P pressed");
+      case "Digit1":
+      console.log("1 pressed");
       if(!loopIsVisible){
        /* control de videos con el teclado */  
         const videoCopyright = document.getElementById("copyright-video");
         const videoDemandas = document.getElementById("demandas-video");
+
    
         if(selectedButton && selectedButton.id === "copyright"){
                 if(videoCopyright.paused){
@@ -52,16 +101,22 @@ window.addEventListener("keydown", (event)=>{
                     videoCopyright.pause();
                 }
               }
-            if (videoDemandas && !videoDemandas.paused) {
+            
+             }else if(selectedButton && selectedButton.id === "demandas"){
+                  enDemandasApp = true;
+                  if (videoDemandas && !videoDemandas.paused) {
                 videoDemandas.pause();
                 console.log("Pausé demandas-video");
-             }else{
-                videoDemandas.play();
-                console.log("Reproduje demandas-video");
+             }else if(selectedButton && selectedButton.id == "canciones"){
+                enCancionApp = true;
              }
             
 
-}else { console.log("NO se pausa porque loopIsVisible es true");}
+}else { 
+  console.log("NO se pausa porque loopIsVisible es true");
+  enCancionApp = false;
+  enDemandasApp = false;
+}
 
 
                 break;

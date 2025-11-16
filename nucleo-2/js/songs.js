@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         songVideo.play().catch(() => {/* autoplay might be blocked by browser */});
     }
-// me conviene que el poner pausa y play con la tecla p, este en este js ya que depende de si la información de la canción está visible o no.
 
     function resetVideo(){
         if(!songVideo) return;
@@ -36,65 +35,61 @@ document.addEventListener("DOMContentLoaded", () => {
         songVideo.src = "";
     }
 
-    //cambio de estilo-----
-    function styleChange(song, i){
-        let info = infoSong[i];
-        let visible = info.style.display === "block";
-        if(!visible && !loopIsVisible){ 
-            infoSong[i].style.display = "block"; 
-            songBtn[i].src = `${selectedStyle[i].img2}`;
-            renderVideo(i);
-             isVisible = true;
-        } else { 
-            infoSong[i].style.display = "none"; 
-            songBtn[i].src = `${selectedStyle[i].img1}`;
-            resetVideo();
-            isVisible = false;
-        } 
-    }
-
-//  comprobar que no haya otra canción seleccionada y cambiar el estilo en ser necesario
-    let selectedButton = null;
-    let selectedIndex = null;
-
+    // comprobar que no haya otra canción seleccionada y cambiar el estilo en ser necesario
+    let selectedIndex = 0; // índice actual seleccionado (A y S lo cambian)
+    let activeIndex = null; // índice actualmente confirmado (Digit1)
     let isVisible = false; // Variable global que indica si hay una canción visible
 
+    // ---- NUEVO: función que actualiza visualmente la selección (solo imagen)
+    function updateSelection(){
+        songBtn.forEach((btn, i) => {
+            btn.src = (i === selectedIndex) ? selectedStyle[i].img2 : selectedStyle[i].img1;
+//0) Los NodeList presentan el método forEach, que itera sobre cada elemento del NodeList. songBtn = NodeList y accede al metodo forEach.
+//1)Compara si el índice del botón actual (i) es igual al índice seleccionado (selectedIndex).
+//2) Se usa un operador ternario para decidir qué imagen asignar al src del botón:
+//a) Si i es igual a selectedIndex, asigna la imagen seleccionada (img2).
+//b) Si no son iguales, asigna la imagen no seleccionada (img1).
 
-    songBtn.forEach((song, i) => {
-        song.addEventListener("click", () => {
-            // Si el usuario hace click en la misma canción activa, la cierra
-
-            if (selectedIndex === i) {
-                styleChange(song, i);
-                pausarVideo();
-                selectedButton = null;
-                selectedIndex = null;
-                return;
-            }
-            closeActiveSong();
-            
-            // Activa la nueva canción
-            styleChange(song, i);
-            selectedButton = song;
-            selectedIndex = i;
         });
-    });
+    }
 
-// ejecutar el else de styleChange al cambiar de categoría ---
+    // ---- NUEVO: función que confirma la selección (muestra info y video)
+    function confirmSelection(){
+        if(loopIsVisible) return;
+
+        // Si la canción seleccionada ya está activa, pausa/reproduce
+        if(activeIndex === selectedIndex && isVisible && enCancionApp){
+            if(songVideo.paused){
+                songVideo.play();
+            } else {
+                songVideo.pause();
+            }
+            return;
+        }
+
+        // Cierra la anterior si hay una
+        closeActiveSong();
+
+        // Abre la nueva
+        infoSong[selectedIndex].style.display = "block";
+        renderVideo(selectedIndex);
+        activeIndex = selectedIndex;
+        isVisible = true;
+    }
+
+    // ejecutar el else de styleChange al cambiar de categoría ---
     const copyright = document.getElementById("copyright");
     const demandas = document.getElementById("demandas");
 
     function closeActiveSong() {
         // si hay una canción activa, ejecutar el "else" de styleChange
-        if (selectedButton !== null && selectedIndex !== null) {
-            // Ejecuta la parte del else manualmente
-            infoSong[selectedIndex].style.display = "none"; 
-            selectedButton.src = `${selectedStyle[selectedIndex].img1}`;
+        if (activeIndex !== null) {
+            infoSong[activeIndex].style.display = "none"; 
+            songBtn[activeIndex].src = `${selectedStyle[activeIndex].img1}`;
             resetVideo(); 
 
             // limpia las referencias
-            selectedButton = null;
-            selectedIndex = null;
+            activeIndex = null;
             isVisible = false;
         } else{
             return;
@@ -102,31 +97,60 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Cada vez que cambies de categoría, se cierra cualquier canción abierta
-    if (copyright) //comprueba que el elemento existe antes de añadir el event listener
-        copyright.addEventListener("click", closeActiveSong); //“Cuando el usuario haga click en este elemento ejecutá la función closeActiveSong().”
+    if (copyright)
+        copyright.addEventListener("click", closeActiveSong);
     if (demandas)
         demandas.addEventListener("click", closeActiveSong);
 
-function pausarVideo(){
+    // ---- EVENTOS DE CLICK (mantienen compatibilidad con el mouse)
+    songBtn.forEach((song, i) => {
+        song.addEventListener("click", () => {
+            selectedIndex = i;
+            updateSelection();
+            confirmSelection();
+        });
+    });
+
+    //---------TECLADO--------
     window.addEventListener("keydown", (event)=>{
         if(event.defaultPrevented){ return; }
         switch(event.code){
-            case "KeyP":
-            if(isVisible && !loopIsVisible){
-                console.log("P pressed");
-                if(songVideo.paused){
-                    songVideo.play();
-                }else{
-                    songVideo.pause();
+            case "Digit1":
+                console.log("1 pressed");
+                if(enCancionApp){
+                console.log(enCancionApp);
+                updateSelection();
+                confirmSelection();
+                }else{return;}
+ 
+                break;
+            case "KeyA": // tecla A para canción anterior
+                if(!loopIsVisible && enCancionApp){
+                    console.log("A pressed");
+                    selectedIndex = (selectedIndex - 1 + songBtn.length) % songBtn.length;
+                    updateSelection();
+                    closeActiveSong(); // cierra si hay una abierta
                 }
-            }else{
-                return;
-            }
+                break;
+            case "KeyS": // tecla S para siguiente canción
+                if(!loopIsVisible && enCancionApp){
+                    console.log("S pressed");
+                   if (window.resetSongSelection) {
+                        selectedIndex = 0;
+                        window.resetSongSelection = false;
+                        } else {
+                        selectedIndex = (selectedIndex + 1) % songBtn.length;
+                        }
+
+                    console.log(selectedIndex-1);
+                    updateSelection();
+                    closeActiveSong(); // cierra si hay una abierta
+                }
                 break;
         }
     });
-};
 
-pausarVideo();
+    window.closeActiveSong = closeActiveSong; // para acceso externo (btn.js)
+    
 
 });

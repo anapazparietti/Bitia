@@ -3,6 +3,7 @@ var loopIsVisible = true;
 // ✅ Mostrar el valor de loopIsVisible cada segundo
 setInterval(() => {
   console.log("loopIsVisible:", loopIsVisible);
+  console.log("enCancionApp:", enCancionApp);
 }, 1000);
 
 document.addEventListener("DOMContentLoaded", () => {
