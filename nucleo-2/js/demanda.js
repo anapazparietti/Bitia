@@ -1,86 +1,140 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // acá me conviene la lógica del calendario que hice en el trabajo anterior
-
-    // --- Datos de las demandas ---
+    // --- DATOS DE LAS DEMANDAS ---
     const demandaInfo = [
-        {titulo: "El caso Gilbert O’Sullivan vs. Biz Markie", video: "video/video1.mp4"},
-        {titulo: "RIAA vs. Suno y Udio", video: "video/video2.mp4"}
+        { titulo: "El caso Gilbert O’Sullivan vs. Biz Markie", video: "video/video1.mp4" },
+        { titulo: "RIAA vs. Suno y Udio", video: "video/video2.mp4" }
     ];
 
     const demanda = document.getElementById("cuerpo-demanda");
     const demandaBtn = document.querySelectorAll(".btn-demanda");
 
-    let activeIndex = null; // guarda el índice de la demanda activa
+    // === NUEVO: referencia al <video> cuando se crea ===
+    let demandaVideo = null;
 
-    // --- función para mostrar una demanda ---
+    // --- FUNCIÓN: renderizar demanda seleccionada ---
     function renderDemanda(index) {
-        const demandaVisible = demandaInfo[index];
+        const data = demandaInfo[index];
+
         demanda.innerHTML = `
-            <h1>${demandaVisible.titulo}</h1>
+            <h1>${data.titulo}</h1>
             <div class="video">
-                <video src="${demandaVisible.video}" id="demandas-video" autoplay></video>
+                <video src="${data.video}" id="demandas-video" autoplay></video>
             </div>
         `;
 
-        // --- Si isLoopVisible está activo, pausamos el video inmediatamente ---
-       
+        // guardar referencia al video recién creado
+        demandaVideo = document.getElementById("demandas-video");
 
+        // si el navegador bloquea autoplay no se rompe
+        demandaVideo?.play().catch(() => {});
     }
 
-    // --- función para cerrar (resetear) una demanda ---
+    // --- FUNCIÓN: resetear demanda ---
     function resetDemanda() {
-        demanda.innerHTML = ""; // borra el contenido
-        activeIndex = null;     // no hay demanda activa
+        if (demandaVideo) {
+            demandaVideo.pause();
+            demandaVideo.currentTime = 0;
+        }
+        demanda.innerHTML = "";
+        demandaVideo = null;
+        isVisible = false;
+        activeIndex = null;
     }
 
-    // --- evento al hacer click en los botones de demanda ---
-    demandaBtn.forEach((btn, i) => {
-        btn.addEventListener("click", () => {
+    // --- VARIABLES DE CONTROL (IGUAL QUE EN CANCIONES) ---
+    let selectedIndex = 0; // índice que mueve A y S
+    let activeIndex = null; // índice actualmente abierto
+    let isVisible = false;  // hay demanda visible?
 
-            if(!loopIsVisible){
-            // Si el usuario hace click en la misma demanda, se cierra (toggle)
-            if (activeIndex === i) {
-                resetDemanda();
-                btn.src = `img/demanda${i + 1}.png`; // vuelve a la imagen no seleccionada
-                activeIndex = null;
-                return;
-            }
-
-            // Si había otra demanda activa, la cierra antes
-            if (activeIndex !== null) {
-                demandaBtn[activeIndex].src = `img/demanda${activeIndex + 1}.png`; // vuelve a la imagen no seleccionada
-                resetDemanda();
-            }
-
-            // Abre la nueva demanda
-            btn.src = `img/demanda${i + 1}-selected.png`; // cambia a la imagen seleccionada
-            renderDemanda(i);
-            activeIndex = i;
-             const video = document.getElementById("demandas-video");
-            } 
-
+    // --- Actualizar la selección visualmente (solo imagen) ---
+    function updateSelection() {
+        demandaBtn.forEach((btn, i) => {
+            btn.src = (i === selectedIndex)
+                ? `img/demanda${i + 1}-selected.png`
+                : `img/demanda${i + 1}.png`;
         });
-    });
+    }
 
-    // --- cerrar demandas al cambiar de categoría ---
-    const copyright = document.getElementById("copyright");
-    const canciones = document.getElementById("canciones");
+    // --- Confirmar selección (abrir demanda o pausar/play) ---
+    function confirmSelection() {
+        if (loopIsVisible) return;
 
+        // si vuelve a seleccionar la misma → alterna play/pause
+        if (activeIndex === selectedIndex && isVisible && enDemandasApp) {
+            if (demandaVideo.paused) {
+                demandaVideo.play();
+            } else {
+                demandaVideo.pause();
+            }
+            return;
+        }
+
+        // cerrar demanda anterior si existe
+        closeActiveDemanda();
+
+        // abrir la nueva
+        renderDemanda(selectedIndex);
+        activeIndex = selectedIndex;
+        isVisible = true;
+    }
+
+    // --- cerrar demanda actualmente abierta ---
     function closeActiveDemanda() {
-        // si hay una demanda activa, la cierra
         if (activeIndex !== null) {
-            demandaBtn[activeIndex].src = `img/demanda${activeIndex + 1}.png`; // vuelve a la imagen no seleccionada
+            demandaBtn[activeIndex].src = `img/demanda${activeIndex + 1}.png`;
             resetDemanda();
         }
     }
+
+    // === EVENTOS CLICK ===
+    demandaBtn.forEach((btn, i) => {
+        btn.addEventListener("click", () => {
+            selectedIndex = i;
+            updateSelection();
+            confirmSelection();
+        });
+    });
+
+    // === CERRAR DEMANDA AL CAMBIAR DE CATEGORÍA ===
+    const copyright = document.getElementById("copyright");
+    const canciones = document.getElementById("canciones");
 
     if (copyright)
         copyright.addEventListener("click", closeActiveDemanda);
     if (canciones)
         canciones.addEventListener("click", closeActiveDemanda);
 
+    // === CONTROL CON TECLADO (A, S, 1) ===
+    window.addEventListener("keydown", (event) => {
+        if (event.defaultPrevented) return;
 
+        switch (event.code) {
+            case "Digit1":
+                if (enDemandasApp) {
+                    updateSelection();
+                    confirmSelection();
+                }
+                break;
 
+            case "KeyA":
+                if (!loopIsVisible && enDemandasApp) {
+                    selectedIndex = (selectedIndex - 1 + demandaBtn.length) % demandaBtn.length;
+                    updateSelection();
+                    closeActiveDemanda();
+                }
+                break;
+
+            case "KeyS":
+                if (!loopIsVisible && enDemandasApp) {
+                    selectedIndex = (selectedIndex + 1) % demandaBtn.length;
+                    updateSelection();
+                    closeActiveDemanda();
+                }
+                break;
+        }
+    });
+
+    window.closeActiveDemanda = closeActiveDemanda; // acceso externo
 
 });
