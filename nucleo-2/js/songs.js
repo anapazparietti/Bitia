@@ -115,8 +115,8 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("keydown", (event)=>{
         if(event.defaultPrevented){ return; }
         switch(event.code){
-            case "Digit1":
-                console.log("1 pressed");
+            case "Minus":
+            case "NumpadSubtract":
                 if(enCancionApp){
                 console.log(enCancionApp);
                 updateSelection();
@@ -124,7 +124,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 }else{return;}
  
                 break;
-            case "KeyA": // tecla A para canción anterior
+//RETROCEDER----------
+            case "KeyA":
+            case "Digit8":
+            case "Numpad8":
                 if(!loopIsVisible && enCancionApp){
                     console.log("A pressed");
                     selectedIndex = (selectedIndex - 1 + songBtn.length) % songBtn.length;
@@ -132,7 +135,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     closeActiveSong(); // cierra si hay una abierta
                 }
                 break;
-            case "KeyS": // tecla S para siguiente canción
+//AVANZAR----------
+            case "KeyS": 
+            case "Digit0":
+            case "Numpad0":
                 if(!loopIsVisible && enCancionApp){
                     console.log("S pressed");
                    if (window.resetSongSelection) {

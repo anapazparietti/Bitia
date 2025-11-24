@@ -8,7 +8,6 @@ setInterval(() => {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  const songVideo = document.getElementById("canciones-video");
   const cuadro = document.getElementById("dialogo");
   const loop = document.querySelector(".loop");
   const nucleo3 = document.getElementById("nucleo3");
@@ -30,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (loopIsVisible) {
       const songVideo = document.getElementById("canciones-video");
       const demandaVideo = document.getElementById("demandas-video");
+      const copyrightVideo = document.getElementById("copyright-video"); 
 
       if (songVideo && !songVideo.paused) {
         songVideo.pause();
@@ -38,6 +38,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if (demandaVideo && !demandaVideo.paused) {
         demandaVideo.pause();
         console.log("⏸ Video de demandas pausado por loopIsVisible");
+      }
+      if (copyrightVideo && !copyrightVideo.paused) {
+        copyrightVideo.pause();
+        console.log("⏸ Video de copyright pausado por loopIsVisible");
       }
     }
   }
@@ -49,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
     pauseVideosIfLoopVisible();
 
     document.addEventListener("keydown", (event) => {
-      if (event.code === "KeyZ") {
+      if (event.code === "KeyZ"|| event.code === "Equal" || event.code === "NumpadAdd") {
         console.log("Presionaste Z");
         if (indice === 0) {
           loop.style.display = "none";

@@ -14,6 +14,9 @@ video = document.getElementById("copyright-video");
     const demandas = document.getElementById("demandas");
     const canciones = document.getElementById("canciones");
     
+if(loopIsVisible){
+    video.pause();
+}
 
     if (demandas){
         demandas.addEventListener("click", restartVideo);
@@ -22,5 +25,6 @@ video = document.getElementById("copyright-video");
         canciones.addEventListener("click", restartVideo);
     };
 
+window.restartCopyrightVideo = restartVideo; // acceso externo
 
 });

@@ -110,13 +110,16 @@ document.addEventListener("DOMContentLoaded", () => {
         if (event.defaultPrevented) return;
 
         switch (event.code) {
-            case "Digit1":
+            case "Minus":
+            case "NumpadSubtract":
                 if (enDemandasApp) {
                     updateSelection();
                     confirmSelection();
                 }
                 break;
-
+//RETROCEDER----------
+            case "Digit8":
+            case "Numpad8":
             case "KeyA":
                 if (!loopIsVisible && enDemandasApp) {
                     selectedIndex = (selectedIndex - 1 + demandaBtn.length) % demandaBtn.length;
@@ -124,7 +127,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     closeActiveDemanda();
                 }
                 break;
-
+//AVANZAR----------
+            case "Digit0":
+            case "Numpad0":
             case "KeyS":
                 if (!loopIsVisible && enDemandasApp) {
                     selectedIndex = (selectedIndex + 1) % demandaBtn.length;

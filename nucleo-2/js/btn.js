@@ -64,13 +64,14 @@ const RUEDA_DELAY = 40; // milisegundos
     if(index ===1){
       enCancionApp = true;
       window.resetSongSelection = true;
+      restartCopyrightVideo();
     }else{
       enCancionApp = false;
-      closeActiveSong();
-      
+      closeActiveSong();  
     }
     if(index ===2){
       enDemandasApp = true;
+      restartCopyrightVideo();
     }else{   
       enDemandasApp = false;
       closeActiveDemanda();
@@ -82,12 +83,14 @@ const RUEDA_DELAY = 40; // milisegundos
 
 
 
-  //--- TECLADO: tecla P para pausar/reproducir video copyright ---
+  //--- TECLADO: tecla - para pausar/reproducir video copyright ---
 window.addEventListener("keydown", (event)=>{
   // if(event.defaultPrevented){ return; }
     switch(event.code){
-      case "Digit1":
-      console.log("1 pressed");
+      // tecla - del teclado o del numpad
+      case "Minus":
+      case "NumpadSubtract":
+      console.log("- pressed");
       if(!loopIsVisible){
        /* control de videos con el teclado */  
         const videoCopyright = document.getElementById("copyright-video");
